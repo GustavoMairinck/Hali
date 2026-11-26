@@ -16,7 +16,7 @@
     return '<line x1="' + n(x1) + '" y1="' + n(y1) + '" x2="' + n(x2) + '" y2="' + n(y2) + '" stroke="' + (c || LN) + '" stroke-width="' + (w || 1) + '"' + (dash ? ' stroke-dasharray="' + dash + '"' : '') + '/>';
   }
   function svg(w, h, body, label) {
-    return '<svg class="vsvg" style="max-width:' + Math.round(w * 1.45) + 'px" viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + (label || 'diagrama') + '"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="' + MU + '"/></marker><marker id="ahy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="' + Y + '"/></marker></defs>' + body + '</svg>';
+    return '<svg class="vsvg" style="--mw:' + Math.round(w * 1.6) + 'px" viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + (label || 'diagrama') + '"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="' + MU + '"/></marker><marker id="ahy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="' + Y + '"/></marker></defs>' + body + '</svg>';
   }
   V.txt = txt; V.line = line; V.svg = svg;
 
