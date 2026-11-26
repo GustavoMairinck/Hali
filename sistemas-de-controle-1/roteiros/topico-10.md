@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 10: Sistemas de 2ª ordem — ζ, ωₙ e os 4 tipos de resposta
 
-Duração do MP3: 3 min 24 s
+Duração do MP3: 3 min 19 s
+
 
 Episódio dez. Segunda ordem: zeta, ômega ene e os quatro tipos de resposta.
 
@@ -20,11 +21,19 @@ A forma geral é K ômega ene ao quadrado sobre s ao quadrado mais dois zeta ôm
 
 Os quatro tipos.
 
+
+
 Zeta igual a zero: polos imaginários puros, resposta não amortecida, oscila para sempre.
+
+
 
 Zeta entre zero e um: polos complexos conjugados, resposta subamortecida, passa do valor final e oscila até parar.
 
+
+
 Zeta igual a um: polos reais e iguais, criticamente amortecida, a mais rápida sem passar do valor final.
+
+
 
 Zeta maior que um: polos reais e diferentes, superamortecida, lenta e sem passar.
 
@@ -39,8 +48,6 @@ Exercício do professor com três sistemas, todos com oito s no meio. Com doze n
 
 
 Erros comuns. Fazer zeta igual a a sobre dois, esquecendo o ômega ene. Tirar ômega ene do termo do meio, quando ele vem do termo independente. Esquecer de dividir tudo quando o s ao quadrado tem coeficiente diferente de um. E confundir ganho com ômega ene ao quadrado: em dez sobre s ao quadrado mais dois s mais quatro, ômega ene é dois e o valor final é dez sobre quatro.
-
-
 
 
 

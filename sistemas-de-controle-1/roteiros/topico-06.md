@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 06: Função de transferência
 
-Duração do MP3: 3 min 00 s
+Duração do MP3: 2 min 57 s
+
 
 Episódio seis. Função de transferência.
 
@@ -19,6 +20,8 @@ A definição completa, do jeito que a prova pede: a função de transferência 
 
 
 Como montar a partir de uma equação diferencial? Três passos. Troca cada derivada por s: derivada segunda vira s ao quadrado vezes Y, derivada primeira vira s vezes Y. Coloca Y de s e X de s em evidência. Divide.
+
+
 
 Exemplo da diagnóstica: duas vezes y duas linhas, mais y linha, mais seis y, igual a x. Fica dois s ao quadrado mais s mais seis, vezes Y, igual a X. Então G é um sobre dois s ao quadrado mais s mais seis.
 

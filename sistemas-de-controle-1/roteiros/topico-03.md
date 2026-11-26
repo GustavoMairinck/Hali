@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 03: Frações parciais e transformada inversa
 
-Duração do MP3: 3 min 38 s
+Duração do MP3: 3 min 32 s
+
 
 Episódio três. Frações parciais e transformada inversa.
 
@@ -24,11 +25,19 @@ Como achar A e B? Com a regra do tampar. Para achar o coeficiente de uma raiz, v
 
 Vamos fazer juntos o exemplo do slide treze da aula dois.
 
+
+
 C de s é s mais dois sobre s vezes s mais cinco.
+
+
 
 Para A, a raiz é zero. Tampa o s. Sobra s mais dois sobre s mais cinco. Coloca s igual a zero: dois quintos.
 
+
+
 Para B, a raiz é menos cinco. Tampa o s mais cinco. Sobra s mais dois sobre s. Coloca s igual a menos cinco: menos três sobre menos cinco, que dá três quintos.
+
+
 
 Volta para o tempo: c de t igual a dois quintos mais três quintos vezes exponencial de menos cinco t.
 
@@ -43,8 +52,6 @@ Quando a raiz é repetida, o coeficiente do termo ao quadrado sai pela regra do 
 
 
 Três erros comuns. Primeiro: usar uma fração só para raiz repetida. Segundo: errar sinal na substituição, porque com s igual a menos cinco, vários termos ficam negativos. Terceiro: tentar expandir quando o grau de cima é maior ou igual ao de baixo. Aí tem que dividir os polinômios antes. Em controle, isso quase nunca acontece.
-
-
 
 
 

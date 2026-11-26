@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 16: Erro em regime permanente
 
-Duração do MP3: 3 min 22 s
+Duração do MP3: 3 min 19 s
+
 
 Episódio dezesseis. Erro em regime permanente.
 
@@ -28,11 +29,19 @@ Duas fórmulas. Se a questão dá a função de malha fechada T: o erro E é R v
 
 O método do professor é normalizar G. Você escreve cada fator na forma um mais s sobre alguma coisa. O número que sobra na frente é G N. Aí usa a tabela.
 
+
+
 Para degrau: tipo zero, erro um sobre um mais G N. Tipo um ou mais, erro zero.
+
+
 
 Para rampa: tipo zero, infinito. Tipo um, um sobre G N. Tipo dois, zero.
 
+
+
 Para parábola: tipo zero e um, infinito. Tipo dois, um sobre G N.
+
+
 
 No livro, esse G N aparece com os nomes K p, K v e K a. É o mesmo número.
 

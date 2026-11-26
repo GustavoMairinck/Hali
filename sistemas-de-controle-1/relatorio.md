@@ -86,7 +86,7 @@ Por **dependência entre conceitos** (não pela ordem dos vídeos): pré-requisi
 
 ## 9. Limitações
 
-- **Áudios:** gerados com uma voz sintética offline (Piper, voz pt-BR "faber"). Eu não consegui ouvir os arquivos; conferi só a duração e o formato. A pronúncia de alguns termos técnicos pode sair estranha. O site também oferece a voz do navegador (SpeechSynthesis) como alternativa.
+- **Áudios:** gerados com uma voz neural offline (Kokoro v1.0, voz pt-BR "pm_alex"), frase por frase, com a marcação de tempo usada para sincronizar os visuais e o roteiro no player. Eu não consigo ouvir os arquivos; conferi a inteligibilidade transcrevendo trechos de volta com reconhecimento de fala (Whisper). A pronúncia de alguns termos técnicos ainda pode sair estranha. O player permite velocidade de 0,5× a 3×.
 - **Playlist:** transcrições automáticas, lidas por amostragem.
 - **Slides com fórmulas em imagem:** li visualmente os slides de fórmulas e exemplos (~130). Os demais foram lidos só pelo texto extraído.
 - **Questão 5 da Lista:** o sistema em malha fechada é instável (Routh). Expliquei as duas leituras possíveis da resposta esperada.

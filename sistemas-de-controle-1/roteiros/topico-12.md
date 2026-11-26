@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 12: Polos adicionais e zeros (polos dominantes)
 
-Duração do MP3: 2 min 55 s
+Duração do MP3: 2 min 59 s
+
 
 Episódio doze. Polos adicionais e zeros.
 
@@ -35,8 +36,6 @@ E se o zero estiver no lado direito? Aí a derivada entra com sinal contrário, 
 
 
 Erros comuns: comparar com ômega ene em vez da parte real; esquecer que o ganho muda quando você corta um polo distante; e achar que zero no lado direito causa instabilidade.
-
-
 
 
 

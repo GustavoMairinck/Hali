@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 15: Routh no projeto — faixa de K para estabilidade
 
-Duração do MP3: 3 min 19 s
+Duração do MP3: 3 min 20 s
+
 
 Episódio quinze. Routh no projeto: a faixa de K.
 
@@ -20,17 +21,31 @@ A ideia. O K aparece em alguns elementos da primeira coluna. Para o sistema ser 
 
 Passo a passo, com a questão três da lista. O denominador de malha fechada é s à quarta mais três s ao cubo mais três s ao quadrado mais dois s mais K.
 
+
+
 Linha s quatro: um, três e K.
+
+
 
 Linha s três: três, dois e zero.
 
+
+
 Linha s dois: três vezes três menos um vezes dois, sobre três. Nove menos dois, sete, sobre três: sete terços. O segundo elemento é três K sobre três: K.
+
+
 
 Linha s um: sete terços vezes dois, menos três vezes K, dividido por sete terços. Isso simplifica para dois menos nove K sobre sete.
 
+
+
 Linha s zero: K.
 
+
+
 Agora as condições. Dois menos nove K sobre sete maior que zero dá K menor que catorze nonos, mais ou menos um vírgula cinco seis. E K maior que zero.
+
+
 
 Resposta: K entre zero e catorze nonos.
 
@@ -49,8 +64,6 @@ Exemplos do slide. K sobre s vezes s mais sete vezes s mais onze: estável para 
 
 
 Erros comuns: esquecer o K maior que zero; inverter o sinal da inequação ao dividir por negativo; montar a tabela com a malha aberta; e ler errado o ponto de milhar.
-
-
 
 
 

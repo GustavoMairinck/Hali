@@ -33,4 +33,4 @@
 ## Ferramentas
 
 - Conferência numérica: Python 3 (SciPy, SymPy).
-- Áudios: Piper TTS, voz pt_BR "faber" (medium).
+- Áudios: Kokoro TTS v1.0 (via sherpa-onnx), voz pt-BR "pm_alex".

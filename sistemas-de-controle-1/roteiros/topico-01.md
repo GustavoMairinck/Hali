@@ -1,12 +1,13 @@
 # Roteiro do áudio — Tópico 01: Números complexos e o plano s
 
-Duração do MP3: 3 min 21 s
+Duração do MP3: 3 min 22 s
+
 
 Episódio um. Números complexos e o plano s.
 
 
 
-Oi, Gustavo. Este episódio é curto e serve de base para quase tudo que vem depois. A meta é uma só: olhar para um número como menos três mais jota sete e saber onde ele fica no mapa.
+Este episódio é curto e serve de base para quase tudo que vem depois. A meta é uma só: olhar para um número como menos três mais jota sete e saber onde ele fica no mapa.
 
 
 
@@ -32,9 +33,15 @@ Repara que elas vêm em par. Uma é o espelho da outra em relação ao eixo hori
 
 Agora a parte mais importante do episódio. O mapa tem três regiões.
 
+
+
 Primeira: o lado esquerdo, onde a parte real é negativa. Polo ali significa que a resposta morre com o tempo. Isso é bom. É estável.
 
+
+
 Segunda: em cima do eixo vertical, onde a parte real é zero. Polo ali significa oscilação que nunca para.
+
+
 
 Terceira: o lado direito, parte real positiva. Polo ali significa resposta que cresce sem limite. Instável.
 

@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 08: Polos, zeros e resposta forçada × natural
 
-Duração do MP3: 3 min 18 s
+Duração do MP3: 3 min 21 s
+
 
 Episódio oito. Polos, zeros e as duas partes da resposta.
 

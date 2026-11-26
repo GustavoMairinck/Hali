@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 04: Sinais de teste e resposta ao impulso
 
-Duração do MP3: 3 min 22 s
+Duração do MP3: 3 min 21 s
+
 
 Episódio quatro. Sinais de teste e resposta ao impulso.
 
@@ -16,11 +17,19 @@ Para testar um carro, ninguém dirige de qualquer jeito. Fazem testes padrão: a
 
 São quatro.
 
+
+
 O impulso: um chute muito rápido. Transformada igual a um.
+
+
 
 O degrau: liga e fica ligado. Representa posição constante, como mudar o setpoint de um ar-condicionado de vinte e cinco para vinte e dois graus. Transformada um sobre s.
 
+
+
 A rampa: cresce em linha reta. Representa velocidade constante, como seguir um alvo andando. Transformada um sobre s ao quadrado.
+
+
 
 A parábola: meio t ao quadrado. Representa aceleração constante. Transformada um sobre s ao cubo. Repara no meio: sem ele, a transformada não seria um sobre s ao cubo.
 
@@ -36,11 +45,19 @@ E para qualquer entrada vale: Y de s igual a G de s vezes X de s. No tempo, isso
 
 Exemplo da diagnóstica. A resposta ao impulso é t vezes exponencial de menos cinco t. A entrada é uma rampa.
 
+
+
 H de s: a base t vale um sobre s ao quadrado, e a exponencial troca s por s mais cinco. Fica um sobre s mais cinco ao quadrado.
+
+
 
 X de s: rampa, um sobre s ao quadrado.
 
+
+
 Y de s: o produto. Um sobre s ao quadrado vezes s mais cinco ao quadrado.
+
+
 
 Para chegar no tempo, frações parciais, episódio três.
 

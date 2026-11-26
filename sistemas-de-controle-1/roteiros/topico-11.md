@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 11: 2ª ordem subamortecido — Tp, %UP, Ts e Tr
 
-Duração do MP3: 3 min 09 s
+Duração do MP3: 3 min 16 s
+
 
 Episódio onze. Subamortecido: tempo de pico, ultrapassagem, acomodação e subida.
 
@@ -20,15 +21,27 @@ Agora a ideia que organiza tudo, olhando para os polos menos sigma d mais ou men
 
 As fórmulas, faladas.
 
+
+
 Ômega d é ômega ene vezes raiz de um menos zeta ao quadrado.
+
+
 
 Sigma d é zeta vezes ômega ene.
 
+
+
 Tempo de pico: pi sobre ômega d.
+
+
 
 Ultrapassagem: cem vezes exponencial de menos zeta pi sobre raiz de um menos zeta ao quadrado. Depende só de zeta.
 
+
+
 Acomodação: quatro sobre zeta ômega ene.
+
+
 
 Tempo de subida não tem fórmula exata. O professor resolve no Matlab. Existe uma aproximação do Nise, que está no site.
 
@@ -40,15 +53,27 @@ E o caminho de volta, quando a questão dá a ultrapassagem e pede zeta: zeta é
 
 Exemplo do slide oitenta e dois: cem sobre s ao quadrado mais quinze s mais cem.
 
+
+
 Primeiro, ômega ene e zeta. Ômega ene é dez. Zeta é quinze sobre vinte, zero vírgula setenta e cinco.
+
+
 
 Raiz de um menos zeta ao quadrado: raiz de zero vírgula quatro três sete cinco, mais ou menos zero vírgula seis seis um.
 
+
+
 Tempo de pico: pi sobre dez vezes zero vírgula seis seis um, mais ou menos zero vírgula quatro sete cinco segundo.
+
+
 
 Ultrapassagem: o expoente dá mais ou menos menos três vírgula cinco seis. Exponencial disso é zero vírgula zero dois oito. Então dois vírgula oito por cento.
 
+
+
 Acomodação: quatro sobre sete vírgula cinco, zero vírgula cinco três três segundo.
+
+
 
 Eu conferi tudo por simulação.
 

@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 17: Ações de controle — on-off, P, I, D e PID
 
-Duração do MP3: 3 min 02 s
+Duração do MP3: 3 min 06 s
+
 
 Episódio dezessete. As ações de controle: liga-desliga, P, I, D e PID.
 
@@ -12,9 +13,15 @@ Meta: entender o que cada ação faz com a resposta e conseguir explicar a tabel
 
 Analogia: você está dirigindo e quer manter o carro no centro da faixa.
 
+
+
 A ação proporcional vira o volante na proporção de quanto você está fora do centro. Ela olha o presente.
 
+
+
 A ação integral percebe que você está fora do centro há muito tempo e vai aumentando a correção. Ela olha o passado.
+
+
 
 A ação derivativa percebe que o carro está se afastando rápido e corrige antes. Ela olha a tendência, o futuro.
 
@@ -38,11 +45,19 @@ Derivativa. Reage à velocidade da mudança do erro. Antecipa e reduz a ultrapas
 
 A tabela de efeitos.
 
+
+
 Aumentar K p: tempo de subida diminui, ultrapassagem aumenta, acomodação muda pouco, erro diminui.
+
+
 
 Aumentar K i: subida diminui, ultrapassagem aumenta, acomodação aumenta, erro é eliminado.
 
+
+
 Aumentar K d: subida diminui pouco, ultrapassagem diminui, acomodação diminui, erro muda pouco.
+
+
 
 O professor faz uma ressalva: isso é tendência. O efeito real depende da planta.
 
