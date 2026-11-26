@@ -57,51 +57,6 @@
     out += '<audio preload="metadata" src="audios/topico-' + t.id + '.mp3?v=3"></audio></div>';
     return out;
   }
-  /* ---------- motor de animação: tudo preso ao tempo do áudio (pausa, avanço e velocidade funcionam) ---------- */
-  function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
-  function ease(x) { x = clamp01(x); return x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2; }
-  function buildAnim(root, t0, t1, starts, still) {
-    var W = Math.max(1, t1 - t0), A = { seq: [], draw: [], pop: [], late: [] };
-    var seq = [];
-    root.querySelectorAll('.pl-body .vf > div, .pl-body .vl li, .pl-body .vt tr, .pl-body .vchips span, .pl-body .vq, .pl-body .vbig, .pl-body .vmini, .pl-body .vnote').forEach(function (e) {
-      if (e.tagName === 'TR' && (!e.querySelector('td') || e.closest('.routh'))) return;
-      seq.push(e);
-    });
-    var S = starts.length, N = seq.length, used = {};
-    seq.forEach(function (e, k) {
-      var si = N <= 1 ? 0 : Math.min(S - 1, Math.floor(k * S / N)), j = used[si] = (used[si] || 0) + 1;
-      A.seq.push({ e: e, t: still ? -1e9 : (k === 0 ? t0 : starts[si]) + (j - 1) * 0.45 + (k === 0 ? 0.05 : 0) });
-    });
-    var svgs = root.querySelectorAll('.pl-body .vsvg');
-    svgs.forEach(function (sv, si) {
-      var ts = still ? -1e9 : t0 + 0.15 + si * Math.min(1.2, W * 0.15), D = Math.max(1.6, Math.min(6, W * 0.55));
-      sv.querySelectorAll('.an-pop').forEach(function (e, k) { A.pop.push({ e: e, t: ts + 0.25 + k * 0.3 }); });
-      sv.querySelectorAll('.an-draw').forEach(function (e) {
-        var o = { e: e, t: ts + 0.3, d: D, mk: e.getAttribute('marker-end') };
-        if (e.classList.contains('an-curve') && e.getTotalLength) {
-          try { o.len = e.getTotalLength(); var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); c.setAttribute('r', '4.5'); c.setAttribute('class', 'an-tracer'); c.setAttribute('fill', e.getAttribute('stroke')); e.parentNode.appendChild(c); o.dot = c; } catch (x) {}
-        }
-        A.draw.push(o);
-      });
-      sv.querySelectorAll('.an-late').forEach(function (e) { A.late.push({ e: e, t: ts + 0.3 + D * 0.85 }); });
-    });
-    root.classList.add('anim');
-    return A;
-  }
-  function runAnim(A, t) {
-    A.seq.forEach(function (o) { o.e.classList.toggle('an-off', t < o.t); o.e.classList.toggle('an-now', t >= o.t && t < o.t + 1.6 && t !== Infinity); });
-    A.pop.forEach(function (o) { o.e.classList.toggle('an-off', t < o.t); });
-    A.late.forEach(function (o) { o.e.classList.toggle('an-off', t < o.t); });
-    A.draw.forEach(function (o) {
-      var p = t === Infinity ? 1 : ease((t - o.t) / o.d);
-      o.e.style.strokeDasharray = '1'; o.e.style.strokeDashoffset = String(1 - p); o.e.style.opacity = p <= 0.005 ? 0 : 1;
-      if (o.mk) { if (p >= 0.97) o.e.setAttribute('marker-end', o.mk); else o.e.removeAttribute('marker-end'); }
-      if (o.dot) {
-        if (p > 0 && p < 1 && o.len) { var pt = o.e.getPointAtLength(o.len * p); o.dot.setAttribute('cx', pt.x); o.dot.setAttribute('cy', pt.y); o.dot.style.opacity = 1; }
-        else o.dot.style.opacity = 0;
-      }
-    });
-  }
   function initPlayers(root) {
     (root || main).querySelectorAll('.player').forEach(function (el) {
       var id = el.dataset.id, au = el.querySelector('audio'), seek = el.querySelector('.pl-seek'), sy = SY[id];
