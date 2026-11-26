@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hali · Estudos</title>
+<style>
+  :root { --bg:#0d0d0d; --panel:#161616; --line:#2c2c2c; --text:#ececec; --muted:#a9a9a9; --y:#f5c518; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:17px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; }
+  header { padding:14px 20px; background:#000; border-bottom:1px solid var(--line); }
+  header b { font-size:22px; letter-spacing:.5px; color:var(--y); }
+  main { max-width:860px; margin:0 auto; padding:32px 20px 60px; }
+  h1 { font-size:30px; margin:0 0 6px; }
+  p.lead { color:var(--muted); margin:0 0 24px; }
+  .list { display:grid; gap:12px; }
+  a.card { display:block; text-decoration:none; color:var(--text); background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--y); border-radius:10px; padding:16px 18px; }
+  a.card:hover, a.card:focus-visible { border-color:var(--y); outline:none; }
+  a.card b { display:block; font-size:19px; color:var(--y); }
+  a.card span { color:var(--muted); font-size:15px; }
+  footer { max-width:860px; margin:0 auto; padding:16px 20px 40px; color:var(--muted); font-size:13px; border-top:1px solid var(--line); }
+</style>
+</head>
+<body>
+<header><b>Hali</b></header>
+<main>
+  <h1>Estudos</h1>
+  <p class="lead">Ambientes de estudo por disciplina — Engenharia de Computação.</p>
+  <div class="list">
+    <!-- Para adicionar uma disciplina: crie uma pasta e copie um bloco <a class="card"> abaixo. -->
+    <a class="card" href="sistemas-de-controle-1/">
+      <b>Sistemas de Controle I</b>
+      <span>18 tópicos com áudio · 42 questões + simulado · folha A4 de consulta</span>
+    </a>
+  </div>
+</main>
+<footer>Gustavo Mairinck · material de estudo pessoal</footer>
+</body>
+</html>
