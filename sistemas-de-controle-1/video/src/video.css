@@ -1,0 +1,35 @@
+:root { --bg: #0d0d0d; --panel: #161616; --panel2: #1d1d1d; --line: #2c2c2c; --text: #ececec; --muted: #a9a9a9; --y: #f5c518; --y2: #c9a213; --ydim: rgba(245,197,24,.14); --bad: #ff8a65; }
+* { box-sizing: border-box; }
+.frame { background: #0f0f0f; color: var(--text); font-family: Inter, system-ui, sans-serif; }
+.top { position: absolute; top: 0; left: 0; right: 0; height: 56px; display: flex; align-items: center; gap: 14px; padding: 0 40px; border-bottom: 1px solid #222; }
+.top .ep { font-size: 15px; font-weight: 800; letter-spacing: 2px; color: #000; background: var(--y); padding: 4px 10px; border-radius: 6px; }
+.top .ept { font-size: 18px; color: var(--muted); }
+.top .brand { margin-left: auto; font-weight: 800; font-size: 22px; } .top .brand b { color: var(--y); }
+.kick { position: absolute; top: 72px; left: 40px; right: 40px; font-size: 26px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; color: var(--y); }
+.stage { position: absolute; top: 116px; left: 40px; right: 40px; height: 480px; display: flex; align-items: center; justify-content: center; }
+.manim { width: 1066px; height: 480px; border-radius: 14px; }
+.vbody { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 14px; }
+.vbody .vsvg { max-width: none !important; width: auto; height: 400px; }
+.vbody .vrow { width: 100%; gap: 40px; flex-wrap: nowrap; }
+.vbody .vrow > * { flex: 1 1 0; }
+.vbody .vrow .vsvg { height: 380px; width: 100%; }
+.vbody .vf { font-size: 40px; line-height: 1.55; }
+.vbody .vf small { font-size: 26px; }
+.vbody .vbig { font-size: 54px; }
+.vbody .vbig small { font-size: 28px; }
+.vbody .vl { font-size: 32px; max-width: 900px; }
+.vbody .vl li { margin: 10px 0; }
+.vbody .vt { font-size: 28px; border-collapse: collapse; }
+.vbody .vt td, .vbody .vt th { padding: 10px 22px; border: 1px solid #333; }
+.vbody .vt th { color: var(--y); background: #1b1b1b; }
+.vbody .vchips span { font-size: 34px; padding: 14px 26px; }
+.vbody .vq { font-size: 30px; padding: 24px 32px; max-width: 900px; } .vbody .vq p { font-size: 34px; } .vbody .vq b { font-size: 20px; }
+.vbody .vq details { display: none; }
+.vbody .vnote { font-size: 24px; }
+.vbody .vgrid4 { width: 100%; gap: 18px; } .vbody .vmini { font-size: 22px; } .vbody .vmini .vsvg { height: 200px; width: 100%; }
+.cap { position: absolute; left: 80px; right: 80px; bottom: 26px; height: 84px; display: flex; align-items: center; justify-content: center; font-size: 27px; line-height: 1.35; text-align: center; }
+.cap > p { margin: 0; }
+.cap .w { color: #8a8a8a; } .cap .w.on { color: #fff; }
+.bar { position: absolute; left: 0; right: 0; bottom: 0; height: 6px; background: #222; }
+.bar > div { height: 100%; background: var(--y); }
+.bar i { position: absolute; top: 0; width: 2px; height: 6px; background: #000; }

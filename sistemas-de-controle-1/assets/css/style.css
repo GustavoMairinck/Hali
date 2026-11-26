@@ -214,16 +214,25 @@ textarea { width: 100%; min-height: 90px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
-/* animação dos visuais (controlada pelo tempo do áudio) */
-.pl-vis.anim .an-off { opacity: 0 !important; }
-.pl-vis.anim .pl-body .vf > div, .pl-vis.anim .pl-body .vl li, .pl-vis.anim .pl-body .vt tr, .pl-vis.anim .pl-body .vchips span,
-.pl-vis.anim .pl-body .vq, .pl-vis.anim .pl-body .vbig, .pl-vis.anim .pl-body .vmini, .pl-vis.anim .pl-body .vnote { transition: opacity .45s ease, transform .45s ease; }
-.pl-vis.anim .pl-body .an-off:not(g):not(circle):not(line) { transform: translateY(8px); }
-.pl-vis.anim .an-pop { transition: opacity .35s ease, transform .45s cubic-bezier(.3,1.6,.5,1); transform-box: fill-box; transform-origin: center; }
-.pl-vis.anim .an-pop.an-off { transform: scale(.2); }
-.pl-vis.anim .an-late { transition: opacity .5s ease; }
-.an-tracer { filter: drop-shadow(0 0 4px currentColor); pointer-events: none; }
-.vbig, .vf > div { will-change: opacity, transform; }
-@media (prefers-reduced-motion: reduce) { .pl-vis.anim .an-off { opacity: 1 !important; transform: none !important; } }
-.pl-vis.anim .pl-body .an-now { color: #fff; text-shadow: 0 0 14px rgba(245,197,24,.55); }
-.pl-vis.anim .pl-body .vl li.an-now, .pl-vis.anim .pl-body .vt tr.an-now td { background: var(--ydim); }
+/* palco no padrão dos vídeos: legenda palavra a palavra, título com barra, visuais maiores */
+.an-tracer { filter: drop-shadow(0 0 5px currentColor); pointer-events: none; }
+.pl-stage { background: #0f0f0f; min-height: 380px; padding: 18px 20px 12px; }
+.pl-kick { display: flex; align-items: center; gap: 10px; font-size: 15px; margin-bottom: 12px; }
+.pl-kick::before { content: ""; width: 4px; height: 18px; border-radius: 2px; background: var(--y); flex: none; }
+.pl-body { min-height: 260px; }
+.pl-body .vsvg { max-width: min(100%, var(--mw, 460px)); }
+.pl-body .vf { font-size: 22px; }
+.pl-body .vbig { font-size: 28px; }
+.pl-cap { font-size: 17px; text-align: center; }
+.pl-cap .w { color: #7d7d7d; transition: color .15s; }
+.pl-cap .w.on { color: #fff; }
+.player.playing .pl-stage { border-color: #3a3a3a; }
+@media (max-width: 760px) { .pl-stage { min-height: 300px; } .pl-body { min-height: 200px; } .pl-body .vf { font-size: 18px; } .pl-body .vbig { font-size: 22px; } }
+
+/* ---------- abas Vídeo / Áudio com cartões ---------- */
+.mtabs{display:flex;gap:6px;margin:18px 0 8px}
+.mtabs button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid #333;background:#171717;color:#a9a9a9;cursor:pointer}
+.mtabs button.on{background:#f5c518;border-color:#f5c518;color:#111}
+.mtabs button:focus-visible{outline:2px solid #7cc4ff;outline-offset:2px}
+.mpane .vid{display:block;width:100%;aspect-ratio:16/9;background:#0f0f0f;border-radius:14px;border:1px solid #2a2a2a}
+.mpane .player{margin-top:0}

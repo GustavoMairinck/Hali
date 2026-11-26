@@ -243,7 +243,7 @@
   var d3 = tf([500], [1, 24, 105, 500], 4), d2 = tf([25], [1, 4, 25], 4);
   VIS['12'] = [
     [0, 'Polos adicionais e zeros', sp({ poles: [[-2, 4.58], [-2, -4.58], [-20, 0]], x: [-22, 3], y: [-7, 7] }) ],
-    [2, 'Polos dominantes', row(sp({ poles: [[-2, 4.58], [-2, -4.58], [-20, 0, '#888']], x: [-22, 3], y: [-7, 7], labels: [[-2, 6, 'dominam'], [-20, 1.6, 'some rápido', C.mu]] }), plot({ t: 4, y: [0, 1.4], c: [{ d: d2, col: C.bl, lab: '2ª ordem', lp: [2.6, 1.12] }, { d: d3, dash: '5 4', lab: '3ª ordem', lp: [3.2, 0.86] }] })) ],
+    [2, 'Polos dominantes', row(sp({ poles: [[-2, 4.58], [-2, -4.58], [-20, 0, '#888']], x: [-22, 3], y: [-7, 7], labels: [[-2, 6, 'dominam'], [-20, 1.6, 'some rápido', C.mu]] }), plot({ t: 4, y: [0, 1.4], c: [{ d: d2, col: C.bl, lab: '2ª ordem', lp: [2.6, 1.22] }, { d: d3, dash: '5 4', lab: '3ª ordem', lp: [3.2, 0.72] }] })) ],
     [3, 'Regra dos cinco vezes', F('|polo extra| ≥ 5 × |parte real dominante|') ],
     [4, 'Exemplo', row(F('polos: −2 ± j4,58 · extra: −20', '20 > 5 × 2 = 10 ✓', 'ωₙ = 5 · ζ = 0,4', '%UP ≈ 25% · Ts ≈ 2 s'), sp({ poles: [[-2, 4.58], [-2, -4.58], [-20, 0]], x: [-22, 3], y: [-7, 7] })) ],
     [5, 'Zero perto: mais rápido e com mais pico', plot({ t: 4, y: [0, 1.8], h1: [[1, '1']], c: [{ d: d2, col: '#888', lab: 'sem zero', lp: [2.8, 0.82] }, { d: tf([25 / 4, 25], [1, 4, 25], 4), lab: 'zero em −4', lp: [1.5, 1.55] }] }) ],
