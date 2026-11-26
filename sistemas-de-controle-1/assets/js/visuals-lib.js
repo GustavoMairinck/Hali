@@ -63,7 +63,7 @@
     if (o.vec) {
       var vx = X(o.vec[0]), vy = Yv(o.vec[1]);
       b += line(vx, vy, vx, y0, MU, 1, '3 3') + line(vx, vy, x0, vy, MU, 1, '3 3');
-      b += '<line x1="' + n(x0) + '" y1="' + n(y0) + '" x2="' + n(vx) + '" y2="' + n(vy) + '" stroke="' + Y + '" stroke-width="2" marker-end="url(#ahy)"/>';
+      b += '<line class="an-draw" pathLength="1" x1="' + n(x0) + '" y1="' + n(y0) + '" x2="' + n(vx) + '" y2="' + n(vy) + '" stroke="' + Y + '" stroke-width="2" marker-end="url(#ahy)"/>';
       if (o.vecLabels !== false) {
         b += txt(vx, y0 + (o.vec[1] > 0 ? 15 : -6), 'σ', { c: Y, a: 'middle' });
         b += txt(x0 + (o.vec[0] < 0 ? 8 : -8), vy + 4, 'ω', { c: Y, a: o.vec[0] < 0 ? 'start' : 'end' });
@@ -72,22 +72,22 @@
     if (o.angle) {
       var ax = o.angle[0], ay = o.angle[1], r = 26, th = Math.atan2(Math.abs(Yv(ay) - y0), Math.abs(X(ax) - x0));
       var ex = x0 - r * Math.cos(th), ey = y0 - r * Math.sin(th) * (ay > 0 ? 1 : -1);
-      b += '<path d="M' + n(x0 - r) + ',' + n(y0) + ' A' + r + ',' + r + ' 0 0,1 ' + n(ex) + ',' + n(ey) + '" fill="none" stroke="' + BL + '" stroke-width="1.6"/>';
+      b += '<path class="an-draw" pathLength="1" d="M' + n(x0 - r) + ',' + n(y0) + ' A' + r + ',' + r + ' 0 0,1 ' + n(ex) + ',' + n(ey) + '" fill="none" stroke="' + BL + '" stroke-width="1.6"/>';
       b += txt(x0 - r - 6, y0 - 8, 'θ', { c: BL, a: 'end', fs: 13 });
       b += line(x0, y0, X(ax), Yv(ay), BL, 1.4);
     }
     if (o.mirror) b += line(P, y0, W - P, y0, Y, 1.2, '5 4');
     (o.arrows || []).forEach(function (a) {
-      b += '<line x1="' + n(X(a[0])) + '" y1="' + n(Yv(a[1])) + '" x2="' + n(X(a[2])) + '" y2="' + n(Yv(a[3])) + '" stroke="' + BL + '" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ah)"/>';
+      b += '<line class="an-late" x1="' + n(X(a[0])) + '" y1="' + n(Yv(a[1])) + '" x2="' + n(X(a[2])) + '" y2="' + n(Yv(a[3])) + '" stroke="' + BL + '" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ah)"/>';
     });
-    (o.zeros || []).forEach(function (z) { b += '<circle cx="' + n(X(z[0])) + '" cy="' + n(Yv(z[1])) + '" r="5.5" fill="none" stroke="' + BL + '" stroke-width="2"/>'; });
+    (o.zeros || []).forEach(function (z) { b += '<circle class="an-pop"  cx="' + n(X(z[0])) + '" cy="' + n(Yv(z[1])) + '" r="5.5" fill="none" stroke="' + BL + '" stroke-width="2"/>'; });
     (o.poles || []).forEach(function (p) {
       var px = X(p[0]), py = Yv(p[1]), c = p[2] || (p[0] > 0.001 ? BAD : Y);
-      b += line(px - 5.5, py - 5.5, px + 5.5, py + 5.5, c, 2.4) + line(px - 5.5, py + 5.5, px + 5.5, py - 5.5, c, 2.4);
+      b += '<g class="an-pop">' + line(px - 5.5, py - 5.5, px + 5.5, py + 5.5, c, 2.4) + line(px - 5.5, py + 5.5, px + 5.5, py - 5.5, c, 2.4) + '</g>';
     });
-    (o.pts || []).forEach(function (p) { b += '<circle cx="' + n(X(p[0])) + '" cy="' + n(Yv(p[1])) + '" r="4.5" fill="' + (p[2] || Y) + '"/>'; });
-    (o.labels || []).forEach(function (l) { b += txt(X(l[0]), Yv(l[1]), l[2], { c: l[3] || TX, a: l[4] || 'middle', fs: 12 }); });
-    if (o.q) b += txt(X(o.q[0]), Yv(o.q[1]) + 6, '?', { c: Y, a: 'middle', fs: 20, w: 700 }) + '<circle cx="' + n(X(o.q[0])) + '" cy="' + n(Yv(o.q[1])) + '" r="13" fill="none" stroke="' + Y + '" stroke-dasharray="3 3"/>';
+    (o.pts || []).forEach(function (p) { b += '<circle class="an-pop" cx="' + n(X(p[0])) + '" cy="' + n(Yv(p[1])) + '" r="4.5" fill="' + (p[2] || Y) + '"/>'; });
+    (o.labels || []).forEach(function (l) { b += '<g class="an-late">' + txt(X(l[0]), Yv(l[1]), l[2], { c: l[3] || TX, a: l[4] || 'middle', fs: 12 }) + '</g>'; });
+    if (o.q) b += '<g class="an-pop">' + txt(X(o.q[0]), Yv(o.q[1]) + 6, '?', { c: Y, a: 'middle', fs: 20, w: 700 }) + '<circle cx="' + n(X(o.q[0])) + '" cy="' + n(Yv(o.q[1])) + '" r="13" fill="none" stroke="' + Y + '" stroke-dasharray="3 3"/></g>';
     return svg(W, H, b, o.label || 'plano s');
   };
 
@@ -143,14 +143,14 @@
       var pts = [];
       if (cv.d) pts = cv.d; else { var N = 240; for (var i = 0; i <= N; i++) { var t = t0 + (tm - t0) * i / N; pts.push([t, cv.f(t)]); } }
       var p = pts.map(function (q) { var v = Math.max(ymn - (ymx - ymn) * .05, Math.min(ymx + (ymx - ymn) * .05, q[1])); return n(X(q[0])) + ',' + n(Yv(v)); }).join(' ');
-      b += '<polyline points="' + p + '" fill="none" stroke="' + (cv.col || Y) + '" stroke-width="' + (cv.wd || 2.2) + '"' + (cv.dash ? ' stroke-dasharray="' + cv.dash + '"' : '') + ' stroke-linejoin="round"/>';
-      if (cv.lab) { var lp = cv.lp || pts[Math.floor(pts.length * .78)]; b += txt(X(lp[0]), Yv(lp[1]) - 6, cv.lab, { c: cv.col || Y, a: 'middle', fs: 11.5, w: 600 }); }
+      b += '<polyline ' + (cv.dash ? '' : 'class="an-draw an-curve" pathLength="1" ') + 'points="' + p + '" fill="none" stroke="' + (cv.col || Y) + '" stroke-width="' + (cv.wd || 2.2) + '"' + (cv.dash ? ' stroke-dasharray="' + cv.dash + '"' : '') + ' stroke-linejoin="round"/>';
+      if (cv.lab) { var lp = cv.lp || pts[Math.floor(pts.length * .78)]; b += '<g class="an-late">' + txt(X(lp[0]), Yv(lp[1]) - 6, cv.lab, { c: cv.col || Y, a: 'middle', fs: 11.5, w: 600 }) + '</g>'; }
     });
-    (o.pts || []).forEach(function (q) { b += '<circle cx="' + n(X(q[0])) + '" cy="' + n(Yv(q[1])) + '" r="4" fill="' + (q[3] || BL) + '"/>' + (q[2] ? txt(X(q[0]) + (q[4] || 6), Yv(q[1]) - 7, q[2], { c: q[3] || BL, fs: 11, a: q[5] || 'start' }) : ''); });
-    (o.ann || []).forEach(function (q) { b += txt(X(q[0]), Yv(q[1]), q[2], { c: q[3] || TX, a: q[4] || 'middle', fs: 11.5 }); });
-    (o.seg || []).forEach(function (q) { b += '<line x1="' + n(X(q[0])) + '" y1="' + n(Yv(q[1])) + '" x2="' + n(X(q[2])) + '" y2="' + n(Yv(q[3])) + '" stroke="' + (q[4] || BL) + '" stroke-width="1.6" marker-start="url(#ah)" marker-end="url(#ah)"/>'; });
-    (o.lines || []).forEach(function (q) { b += line(X(q[0]), Yv(q[1]), X(q[2]), Yv(q[3]), q[4] || BL, q[5] || 1.6, q[6]); });
-    (o.arrowsUp || []).forEach(function (q) { b += '<line x1="' + n(X(q[0])) + '" y1="' + n(Yv(0)) + '" x2="' + n(X(q[0])) + '" y2="' + n(Yv(q[1])) + '" stroke="' + Y + '" stroke-width="2.4" marker-end="url(#ahy)"/>'; });
+    (o.pts || []).forEach(function (q) { b += '<g class="an-late"><circle cx="' + n(X(q[0])) + '" cy="' + n(Yv(q[1])) + '" r="4" fill="' + (q[3] || BL) + '"/>' + (q[2] ? txt(X(q[0]) + (q[4] || 6), Yv(q[1]) - 7, q[2], { c: q[3] || BL, fs: 11, a: q[5] || 'start' }) : '') + '</g>'; });
+    (o.ann || []).forEach(function (q) { b += '<g class="an-late">' + txt(X(q[0]), Yv(q[1]), q[2], { c: q[3] || TX, a: q[4] || 'middle', fs: 11.5 }) + '</g>'; });
+    (o.seg || []).forEach(function (q) { b += '<line class="an-late" x1="' + n(X(q[0])) + '" y1="' + n(Yv(q[1])) + '" x2="' + n(X(q[2])) + '" y2="' + n(Yv(q[3])) + '" stroke="' + (q[4] || BL) + '" stroke-width="1.6" marker-start="url(#ah)" marker-end="url(#ah)"/>'; });
+    (o.lines || []).forEach(function (q) { b += '<g class="an-late">' + line(X(q[0]), Yv(q[1]), X(q[2]), Yv(q[3]), q[4] || BL, q[5] || 1.6, q[6]) + '</g>'; });
+    (o.arrowsUp || []).forEach(function (q) { b += '<line class="an-draw" pathLength="1" x1="' + n(X(q[0])) + '" y1="' + n(Yv(0)) + '" x2="' + n(X(q[0])) + '" y2="' + n(Yv(q[1])) + '" stroke="' + Y + '" stroke-width="2.4" marker-end="url(#ahy)"/>'; });
     return svg(W, H, b, o.label || 'gráfico');
   };
 
@@ -178,8 +178,8 @@
     bl.forEach(function (name, i) {
       var h = on(i);
       if (o.plant && i >= o.plant[0] && i <= o.plant[1]) { if (px0 === null) px0 = x; px1 = x + bw; }
-      b += '<rect x="' + n(x) + '" y="' + (y - 17) + '" width="' + n(bw) + '" height="34" rx="6" fill="' + (h ? 'rgba(245,197,24,.18)' : '#1b1b1b') + '" stroke="' + (h ? Y : '#666') + '" stroke-width="' + (h ? 2.2 : 1.2) + '"/>';
-      b += txt(x + bw / 2, y + 4, name, { c: h ? Y : TX, a: 'middle', fs: bw < 60 ? 10.5 : 12, w: h ? 700 : 400 });
+      b += '<g class="an-pop"><rect x="' + n(x) + '" y="' + (y - 17) + '" width="' + n(bw) + '" height="34" rx="6" fill="' + (h ? 'rgba(245,197,24,.18)' : '#1b1b1b') + '" stroke="' + (h ? Y : '#666') + '" stroke-width="' + (h ? 2.2 : 1.2) + '"/>';
+      b += txt(x + bw / 2, y + 4, name, { c: h ? Y : TX, a: 'middle', fs: bw < 60 ? 10.5 : 12, w: h ? 700 : 400 }) + '</g>';
       x += bw;
       if (i < nb - 1) { b += '<line x1="' + n(x) + '" y1="' + y + '" x2="' + n(x + gap - 1) + '" y2="' + y + '" stroke="' + MU + '" stroke-width="1.4" marker-end="url(#ah)"/>'; x += gap; }
     });
@@ -199,10 +199,10 @@
     if (o.H) {
       var fx = ox + (end - ox) / 2 - 6, yb = y + 72, hw = 76, hx = (sx + fx) / 2 - hw / 2, hh = on('H');
       b += '<circle cx="' + n(fx) + '" cy="' + y + '" r="3" fill="' + MU + '"/>';
-      b += '<polyline points="' + n(fx) + ',' + y + ' ' + n(fx) + ',' + yb + ' ' + n(hx + hw + 1) + ',' + yb + '" fill="none" stroke="' + (hh ? Y : MU) + '" stroke-width="1.4" marker-end="url(#ah)"/>';
-      b += '<rect x="' + n(hx) + '" y="' + (yb - 16) + '" width="' + hw + '" height="32" rx="6" fill="' + (hh ? 'rgba(245,197,24,.18)' : '#1b1b1b') + '" stroke="' + (hh ? Y : '#666') + '" stroke-width="' + (hh ? 2.2 : 1.2) + '"/>';
-      b += txt(hx + hw / 2, yb + 4, o.H, { c: hh ? Y : TX, a: 'middle', fs: 12, w: hh ? 700 : 400 });
-      b += '<polyline points="' + n(hx) + ',' + yb + ' ' + sx + ',' + yb + ' ' + sx + ',' + (y + 11) + '" fill="none" stroke="' + (hh ? Y : MU) + '" stroke-width="1.4" marker-end="url(#ah)"/>';
+      b += '<polyline class="an-draw" pathLength="1" points="' + n(fx) + ',' + y + ' ' + n(fx) + ',' + yb + ' ' + n(hx + hw + 1) + ',' + yb + '" fill="none" stroke="' + (hh ? Y : MU) + '" stroke-width="1.4" marker-end="url(#ah)"/>';
+      b += '<g class="an-pop"><rect x="' + n(hx) + '" y="' + (yb - 16) + '" width="' + hw + '" height="32" rx="6" fill="' + (hh ? 'rgba(245,197,24,.18)' : '#1b1b1b') + '" stroke="' + (hh ? Y : '#666') + '" stroke-width="' + (hh ? 2.2 : 1.2) + '"/>';
+      b += txt(hx + hw / 2, yb + 4, o.H, { c: hh ? Y : TX, a: 'middle', fs: 12, w: hh ? 700 : 400 }) + '</g>';
+      b += '<polyline class="an-draw" pathLength="1" points="' + n(hx) + ',' + yb + ' ' + sx + ',' + yb + ' ' + sx + ',' + (y + 11) + '" fill="none" stroke="' + (hh ? Y : MU) + '" stroke-width="1.4" marker-end="url(#ah)"/>';
     }
     return svg(W, H, b, o.label || 'diagrama de blocos');
   };
