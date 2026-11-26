@@ -2,214 +2,422 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<title>Folha de consulta — Sistemas de Controle I</title>
+<title>Folha de consulta (frente e verso) — Sistemas de Controle I</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-@page { size: A4 portrait; margin: 6mm; }
+@page { size: A4 portrait; margin: 0; }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
-body { font-family: "Arial Narrow", "Roboto Condensed", "Liberation Sans Narrow", Arial, sans-serif; font-size: 8.5pt; line-height: 1.2; color: #000; background: #fff; }
-.page { width: 198mm; height: 285mm; margin: 0 auto; padding: 0; overflow: hidden; }
-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1.4pt solid #000; padding-bottom: 1mm; margin-bottom: 1.2mm; }
-header h1 { font-size: 10pt; margin: 0; letter-spacing: .2px; }
-header span { font-size: 7pt; }
-.cols { column-count: 3; column-gap: 3mm; column-rule: 0.4pt solid #bbb; }
-section { break-inside: avoid; margin: 0 0 1.4mm 0; }
-h2 { font-size: 9pt; margin: 0 0 .6mm 0; padding: .3mm 1.2mm; background: #000; color: #ffd400; border-left: 2.2mm solid #ffd400; }
-p, ul { margin: 0 0 .7mm 0; }
-ul { padding-left: 3mm; }
-li { margin: 0 0 .3mm 0; }
-table { border-collapse: collapse; width: 100%; margin: .4mm 0 .8mm 0; }
-td, th { border: 0.4pt solid #999; padding: .25mm .7mm; vertical-align: middle; text-align: left; }
+body { font-family: "Arial Narrow", "Roboto Condensed", "Liberation Sans Narrow", Arial, sans-serif; font-size: 8.3pt; line-height: 1.2; color: #000; background: #fff; }
+.page { width: 210mm; height: 297mm; padding: 6mm 6.5mm; overflow: hidden; page-break-after: always; break-after: page; position: relative; }
+.page:last-child { page-break-after: auto; break-after: auto; }
+header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1.4pt solid #000; padding-bottom: .8mm; margin-bottom: 1.4mm; }
+header h1 { font-size: 10.5pt; margin: 0; }
+header span { font-size: 7.4pt; }
+.cols { column-count: 3; column-gap: 3.2mm; column-rule: 0.4pt dashed #999; column-fill: auto; height: 276mm; }
+section { break-inside: avoid; margin: 0 0 1.5mm 0; border: 0.6pt solid #000; border-radius: 1.2mm; padding: .6mm 1.2mm 1mm; }
+h2 { font-size: 8.8pt; margin: 0 0 .6mm 0; padding-bottom: .3mm; border-bottom: 0.6pt solid #000; }
+h2 i { font-style: normal; display: inline-block; min-width: 4mm; background: #ffd400; text-align: center; margin-right: 1mm; border-radius: .6mm; }
+p, ul, ol { margin: 0 0 .6mm 0; }
+ul, ol { padding-left: 3.5mm; }
+li { margin: 0 0 .25mm 0; }
+table { border-collapse: collapse; width: 100%; margin: .4mm 0 .7mm 0; }
+td, th { border: 0.4pt solid #777; padding: .2mm .6mm; vertical-align: middle; text-align: left; }
 th { background: #eee; font-weight: bold; }
-.f { display: block; text-align: center; margin: .5mm 0; font-size: 8.2pt; }
-.alert { border: 0.8pt solid #000; background: #fff6bf; padding: .5mm 1mm; margin: .6mm 0; }
-.alert b { color: #000; }
+.f { display: block; text-align: center; margin: .5mm 0; font-size: 8.8pt; }
+.box { border: 1pt solid #000; background: #fff6bf; padding: .4mm 1mm; margin: .6mm 0; }
 .frac { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; line-height: 1.05; margin: 0 .3mm; }
 .frac > span:first-child { border-bottom: 0.5pt solid #000; padding: 0 .4mm; }
 .frac > span { font-size: 0.92em; }
 sub, sup { font-size: 0.72em; line-height: 0; }
-.mini { font-size: 7.4pt; color: #333; }
-b.y { background: #ffd400; padding: 0 .4mm; }
-@media screen { body { background: #222; padding: 8px; } .page { background: #fff; padding: 6mm; width: 210mm; height: 297mm; box-shadow: 0 0 8px #000; } }
+.mini { font-size: 7.4pt; }
+svg { display: block; margin: .4mm auto; }
+svg text { font-family: Arial, sans-serif; font-size: 7px; }
+@media screen { body { background: #222; padding: 8px 0; } .page { background: #fff; margin: 0 auto 10px; box-shadow: 0 0 8px #000; } }
 </style>
 </head>
 <body>
+
+<!-- ======================= FRENTE ======================= -->
 <div class="page">
-<header><h1>SISTEMAS DE CONTROLE I — Folha de consulta</h1><span>Prof. Matheus B. Luchini · Multivix · versão estratégica (1 página)</span></header>
+<header><h1>CONTROLE I — FRENTE: modelagem e resposta no tempo</h1><span>consulta · verso → estabilidade, erro, PID</span></header>
 <div class="cols">
 
 <section>
-<h2>0. Qual método usar? (macete)</h2>
+<h2><i>0</i>Roteiro: o enunciado pede…</h2>
 <ul>
-<li><b>“É estável?”</b> → atalhos dos coeficientes → se inconclusivo, <b>Routh</b>.</li>
-<li><b>“Faixa de K”</b> → Routh com K → tudo &gt; 0 → interseção.</li>
-<li><b>“Erro em regime”</b> → <b class="y">1º checar estabilidade</b> → tipo + G<sub>N</sub> → tabela.</li>
-<li><b>“ζ, ωₙ, T<sub>p</sub>, %UP…”</b> → comparar com forma geral de 2ª ordem.</li>
-<li><b>Gráfico</b> → ler valor final, pico, T<sub>p</sub>, 63% (1ª ordem).</li>
-<li><b>“Ganhos PID”</b> → ZN1 (curva em S, malha aberta) ou ZN2 (K<sub>u</sub>, P<sub>u</sub>, malha fechada).</li>
+<li><b>FT</b> → d/dt → s, CI = 0, Y/X.</li>
+<li><b>Reduzir blocos</b> → série ×, paralelo ±, malha G/(1+GH).</li>
+<li><b>Mapa de polos</b> → × = denominador, ○ = numerador, fator (s − p).</li>
+<li><b>c(t)</b> → frações parciais (tampar) → tabela.</li>
+<li><b>τ, T<sub>r</sub>, T<sub>s</sub></b> 1ª ordem → achar a (polo).</li>
+<li><b>ζ, ωₙ, T<sub>p</sub>, %UP, T<sub>s</sub></b> → comparar com b/(s²+as+b).</li>
+<li><b>Gráfico</b> → valor final, pico, T<sub>p</sub>, 63%.</li>
+<li><b>Estável? Erro? PID?</b> → <b>verso</b>.</li>
 </ul>
 </section>
 
 <section>
-<h2>1. Laplace (tabela + regras)</h2>
+<h2><i>1</i>Plano s e complexos</h2>
+<p>s = σ + jω · Δ&lt;0 → s = −b/2a ± j√(−Δ)/2a (par conjugado)</p>
+<table>
+<tr><td>SPE (σ&lt;0)</td><td>resposta morre → <b>estável</b></td></tr>
+<tr><td>eixo jω (σ=0)</td><td>oscila sempre → <b>marginal</b></td></tr>
+<tr><td>SPD (σ&gt;0)</td><td>explode → <b>instável</b></td></tr>
+</table>
+<p>|s| = √(σ²+ω²) · θ = tan⁻¹(ω/σ) medido do <b>eixo real negativo</b></p>
+</section>
+
+<section>
+<h2><i>2</i>Laplace — tabela</h2>
 <table>
 <tr><td>δ(t)</td><td>1</td><td>tⁿ</td><td><span class="frac"><span>n!</span><span>sⁿ⁺¹</span></span></td></tr>
 <tr><td>u(t)</td><td><span class="frac"><span>1</span><span>s</span></span></td><td>e<sup>−at</sup></td><td><span class="frac"><span>1</span><span>s+a</span></span></td></tr>
-<tr><td>t (rampa)</td><td><span class="frac"><span>1</span><span>s²</span></span></td><td>sen ωt</td><td><span class="frac"><span>ω</span><span>s²+ω²</span></span></td></tr>
-<tr><td>½t² (parábola)</td><td><span class="frac"><span>1</span><span>s³</span></span></td><td>cos ωt</td><td><span class="frac"><span>s</span><span>s²+ω²</span></span></td></tr>
+<tr><td>t</td><td><span class="frac"><span>1</span><span>s²</span></span></td><td>t·e<sup>−at</sup></td><td><span class="frac"><span>1</span><span>(s+a)²</span></span></td></tr>
+<tr><td>½t²</td><td><span class="frac"><span>1</span><span>s³</span></span></td><td>sen ωt</td><td><span class="frac"><span>ω</span><span>s²+ω²</span></span></td></tr>
+<tr><td>A (const.)</td><td><span class="frac"><span>A</span><span>s</span></span></td><td>cos ωt</td><td><span class="frac"><span>s</span><span>s²+ω²</span></span></td></tr>
+<tr><td colspan="2">e<sup>−at</sup>sen ωt</td><td colspan="2"><span class="frac"><span>ω</span><span>(s+a)²+ω²</span></span></td></tr>
+<tr><td colspan="2">e<sup>−at</sup>cos ωt</td><td colspan="2"><span class="frac"><span>s+a</span><span>(s+a)²+ω²</span></span></td></tr>
 </table>
+</section>
+
+<section>
+<h2><i>3</i>Laplace — propriedades</h2>
 <ul>
-<li><b>e<sup>−at</sup>·f(t) → F(s+a)</b> (troca <u>todo</u> s; e<sup>+at</sup> → s−a). Polo = número do expoente.</li>
-<li>d/dt → s (CI nulas) · constantes saem para fora.</li>
-<li><b>Valor final:</b> f(∞) = lim<sub>s→0</sub> sF(s) — <b>só se estável</b>.</li>
-<li><b>Frações parciais:</b> coef. da raiz p = tampar (s−p) e pôr s = p. Raiz dupla: <span class="frac"><span>C</span><span>s+a</span></span> + <span class="frac"><span>D</span><span>(s+a)²</span></span> → Ce<sup>−at</sup> + Dte<sup>−at</sup>.</li>
+<li>Linearidade: L{k·f} = k·F(s).</li>
+<li><b>e<sup>−at</sup>·f(t) → F(s+a)</b>: troca <u>todo</u> s; e<sup>+at</sup> → (s−a). <b>Sinal inverte</b>; polo = nº do expoente. Não mexe no ω².</li>
+<li>Derivada: f' → sF(s) (CI nulas); f'' → s²F(s).</li>
+<li>Integral: ∫f dt → F(s)/s.</li>
+<li><b>Valor final:</b> f(∞) = lim<sub>s→0</sub> sF(s) — só se estável.</li>
+<li>Convolução no tempo (h∗x) = produto em s (H·X).</li>
+</ul>
+<p class="mini">Ex.: 5e<sup>−2t</sup>sen3t → <span class="frac"><span>15</span><span>(s+2)²+9</span></span> · 7e<sup>4t</sup>t⁴ → <span class="frac"><span>168</span><span>(s−4)⁵</span></span></p>
+</section>
+
+<section>
+<h2><i>4</i>Frações parciais (volta ao tempo)</h2>
+<ul>
+<li>Uma fração por raiz. <b>Tampar:</b> coef. de (s−p) = resto avaliado em s=p.</li>
+<li>Raiz dupla: <span class="frac"><span>C</span><span>s+a</span></span> + <span class="frac"><span>D</span><span>(s+a)²</span></span> → Ce<sup>−at</sup> + D·t·e<sup>−at</sup>; D = tampar; C = derivar o resto e pôr s=p.</li>
+<li>Δ&lt;0: completar quadrado → (s+a)²+ω² → sen/cos com e<sup>−at</sup>.</li>
+<li>Grau num ≥ grau den → dividir antes.</li>
+</ul>
+<p class="mini">Ex.: <span class="frac"><span>s+2</span><span>s(s+5)</span></span> = <span class="frac"><span>2/5</span><span>s</span></span> + <span class="frac"><span>3/5</span><span>s+5</span></span> → c = 2/5 + 3/5·e<sup>−5t</sup></p>
+</section>
+
+<section>
+<h2><i>5</i>Sinais de teste e impulso</h2>
+<svg width="190" height="36" viewBox="0 0 190 36">
+<g stroke="#000" fill="none" stroke-width="1">
+<path d="M4 28h38M8 28V4"/><path d="M8 28V8" stroke-width="2"/><path d="M5 9l3-4 3 4"/>
+<path d="M52 28h38M56 28V4"/><path d="M56 14h32" stroke-width="2"/>
+<path d="M100 28h38M104 28V4"/><path d="M104 28L134 8" stroke-width="2"/>
+<path d="M148 28h38M152 28V4"/><path d="M152 28Q172 26 182 8" stroke-width="1.6"/>
+</g>
+<text x="4" y="35">δ(t) → 1</text><text x="52" y="35">u(t) → 1/s</text><text x="100" y="35">t → 1/s²</text><text x="148" y="35">½t² → 1/s³</text>
+</svg>
+<p>Degrau = <b>posição</b> const. · Rampa = <b>velocidade</b> · Parábola = <b>aceleração</b>. Amplitude A → multiplica.</p>
+<p><b>Resposta ao impulso:</b> L{δ}=1 → Y = G → <b>h(t) = L⁻¹{G(s)}</b> = “impressão digital” do sistema. Qualquer entrada: Y = G·X.</p>
+</section>
+
+<section>
+<h2><i>6</i>Controle: vocabulário</h2>
+<ul>
+<li>Controlar = variável seguir valor/trajetória desejada.</li>
+<li>Referência (SP) · saída (PV) · controlador · atuador · processo · <b>planta = atuador + processo</b> · sensor · distúrbio.</li>
+<li><b>MA:</b> não mede saída (máq. de lavar). Simples, barata, não cria instabilidade; sensível a distúrbio/parâmetros.</li>
+<li><b>MF:</b> mede, compara, corrige. + precisão, rejeita distúrbio; + custo, manutenção, <b>risco de instabilidade</b>.</li>
+<li>Erros de medição: grosseiro, acidental, inserção, paralaxe, zeragem.</li>
 </ul>
 </section>
 
 <section>
-<h2>2. FT e diagrama de blocos</h2>
-<ul>
-<li>G(s) = <span class="frac"><span>C(s)</span><span>R(s)</span></span> (saída/entrada, CI nulas). Z: R · sL · <span class="frac"><span>1</span><span>sC</span></span>.</li>
-<li>Série: <b>×</b> · Paralelo: <b>±</b> · Realimentação:</li>
-</ul>
-<span class="f">T = <span class="frac"><span>G</span><span>1 + GH</span></span> (realim. negativa; positiva → 1 − GH)</span>
-<ul>
-<li>Mover somador p/ frente de G: entrada extra × G. Mover ramificação p/ frente de G: ramo × 1/G.</li>
-<li>Massa-mola: <span class="frac"><span>1</span><span>Ms²+Bs+k</span></span> · crítico: B² = 4Mk.</li>
-</ul>
-</section>
-
-<section>
-<h2>3. Polos e zeros</h2>
-<ul>
-<li>Polo (×) = raiz do denominador → <b>forma</b>. Zero (○) = raiz do numerador → amplitude. <b>Zero não define estabilidade.</b></li>
-<li>Polo −a → Ke<sup>−at</sup>. Par −σ ± jω → Ke<sup>−σt</sup>cos(ωt−φ).</li>
-<li>Resposta <b>forçada</b> ← polos da entrada; <b>natural</b> ← polos do sistema.</li>
-<li>Mais à esquerda = mais rápido.</li>
-</ul>
-</section>
-
-<section>
-<h2>4. 1ª ordem — G = <span class="frac"><span>a</span><span>s+a</span></span> (ou <span class="frac"><span>K</span><span>τs+1</span></span>, a = 1/τ)</h2>
+<h2><i>7</i>Função de transferência</h2>
+<span class="f">G(s) = <span class="frac"><span>C(s)</span><span>R(s)</span></span> — saída/entrada, <b>CI nulas</b>, não depende da entrada</span>
 <table>
-<tr><th>τ</th><th>T<sub>r</sub> (10–90%)</th><th>T<sub>s</sub> (2%)</th><th>final</th></tr>
-<tr><td><span class="frac"><span>1</span><span>a</span></span> (63%)</td><td><span class="frac"><span>2,2</span><span>a</span></span></td><td><span class="frac"><span>4</span><span>a</span></span></td><td>G(0)</td></tr>
+<tr><th>R</th><th>L</th><th>C</th><th>massa</th><th>mola</th><th>amortec.</th></tr>
+<tr><td>R</td><td>sL</td><td><span class="frac"><span>1</span><span>sC</span></span></td><td>Ms²</td><td>k</td><td>Bs</td></tr>
 </table>
-<p class="mini">τ vem do polo, não do ganho. Ganho muda só o valor final.</p>
+<ul>
+<li>Eq. dif.: 2y''+y'+6y = x → <span class="frac"><span>1</span><span>2s²+s+6</span></span>.</li>
+<li>RC série (saída V<sub>C</sub>): <span class="frac"><span>1</span><span>RCs+1</span></span> (τ = RC). RL (saída V<sub>R</sub>): <span class="frac"><span>R</span><span>Ls+R</span></span>.</li>
+<li>Massa-mola: <span class="frac"><span>X</span><span>F</span></span> = <span class="frac"><span>1</span><span>Ms²+Bs+k</span></span> · crítico: <b>B² = 4Mk</b>.</li>
+<li>Denominador = eq. característica → polos.</li>
+</ul>
 </section>
 
 <section>
-<h2>5. 2ª ordem</h2>
-<span class="f">G = <span class="frac"><span>Kωₙ²</span><span>s² + 2ζωₙs + ωₙ²</span></span> · de <span class="frac"><span>b</span><span>s²+as+b</span></span>: ωₙ = √b, ζ = <span class="frac"><span>a</span><span>2√b</span></span></span>
+<h2><i>8</i>Diagrama de blocos</h2>
+<table>
+<tr><td>Série</td><td>G₁·G₂·G₃</td></tr>
+<tr><td>Paralelo</td><td>G₁ ± G₂ ± G₃</td></tr>
+<tr><td>Realim. (−)</td><td><span class="frac"><span>G</span><span>1 + GH</span></span> · unitária <span class="frac"><span>G</span><span>1+G</span></span></td></tr>
+<tr><td>Realim. (+)</td><td><span class="frac"><span>G</span><span>1 − GH</span></span></td></tr>
+</table>
+<p class="mini">Dedução: E = R − HC; C = GE → C(1+GH) = GR.</p>
+<ul>
+<li>Somador p/ <b>frente</b> de G: entrada extra × G. P/ <b>trás</b>: entrada extra × 1/G.</li>
+<li>Ramificação p/ <b>frente</b> de G: ramo × 1/G. P/ <b>trás</b>: ramo × G.</li>
+<li>Regra de ouro: o sinal em cada ponto não muda.</li>
+<li>h₁∗h₂ (∗ = convolução) = série no tempo.</li>
+</ul>
+<p class="mini">Ex. prova: <span class="frac"><span>1</span><span>s+4</span></span> c/ H = <span class="frac"><span>1</span><span>s</span></span> → <span class="frac"><span>s</span><span>s²+4s+1</span></span></p>
+</section>
+
+<section>
+<h2><i>9</i>Polos e zeros</h2>
+<ul>
+<li><b>Polo ×</b> = raiz do den → <b>forma</b>. <b>Zero ○</b> = raiz do num → amplitude. <b>Zero não decide estabilidade.</b></li>
+<li><b>Forçada</b> ← polos da entrada · <b>natural</b> ← polos do sistema.</li>
+<li>−a → Ke<sup>−at</sup> · −σ±jω → Ke<sup>−σt</sup>cos(ωt−φ) · mais à esquerda = mais rápido.</li>
+<li>Ordem = grau do den = nº de polos.</li>
+</ul>
+</section>
+
+<section>
+<h2><i>10</i>1ª ordem: <span class="frac"><span>a</span><span>s+a</span></span> ou <span class="frac"><span>K</span><span>τs+1</span></span></h2>
+<svg width="190" height="48" viewBox="0 0 190 48">
+<g fill="none" stroke="#000"><path d="M16 40h170M16 40V4"/><path d="M16 40C34 18 54 10 184 8" stroke-width="1.6"/><path d="M16 8h170" stroke-dasharray="2 2"/><path d="M46 40V17M16 17h30" stroke-dasharray="2 2"/><path d="M16 40L52 8" stroke-dasharray="1 2"/></g>
+<text x="2" y="10">k</text><text x="0" y="19">.63k</text><text x="43" y="47">τ</text><text x="100" y="24">c = k(1 − e^(−t/τ))</text>
+</svg>
+<table>
+<tr><th>τ</th><th>T<sub>r</sub> (10→90%)</th><th>T<sub>s</sub> (±2%)</th><th>final</th></tr>
+<tr><td><span class="frac"><span>1</span><span>a</span></span> → 63%</td><td><span class="frac"><span>2,2</span><span>a</span></span></td><td><span class="frac"><span>4</span><span>a</span></span></td><td>G(0)·A</td></tr>
+</table>
+<p class="mini">2,2 = 2,31 − 0,11 · 4 vem de e⁻⁴ ≈ 0,018. τ vem do <b>polo</b>. ↑K: só valor final. ↑τ: mais lento. Polo &gt; 0 → instável.</p>
+</section>
+
+<section>
+<h2><i>11</i>2ª ordem: forma e tipos</h2>
+<span class="f">G = <span class="frac"><span>Kωₙ²</span><span>s² + 2ζωₙs + ωₙ²</span></span> · de <span class="frac"><span>b</span><span>s²+as+b</span></span>: <b>ωₙ = √b</b>, <b>ζ = <span class="frac"><span>a</span><span>2√b</span></span></b></span>
+<p>Polos: −ζωₙ ± ωₙ√(ζ²−1) · normalizar s² se coef ≠ 1</p>
+<svg width="196" height="50" viewBox="0 0 196 50">
+<g fill="none" stroke="#000"><path d="M10 44h182M10 44V4"/><path d="M10 24h182" stroke-dasharray="2 2"/>
+<path d="M10 44C18 4 30 2 40 18S58 30 70 24 90 22 190 24" stroke-width="1.6"/>
+<path d="M10 44C24 26 44 24 190 24" stroke-width="1.1"/>
+<path d="M10 44C40 40 70 28 190 26" stroke-width=".8"/></g>
+<text x="46" y="10">sub (0&lt;ζ&lt;1)</text><text x="112" y="19">crítico (ζ=1)</text><text x="112" y="38">super (ζ&gt;1)</text><text x="0" y="27">1</text>
+</svg>
 <table>
 <tr><th>ζ</th><th>polos</th><th>resposta</th></tr>
-<tr><td>0</td><td>±jωₙ</td><td>não amortecida</td></tr>
-<tr><td>0–1</td><td>complexos</td><td>sub (ultrapassa)</td></tr>
-<tr><td>1</td><td>reais iguais</td><td>crítica (+ rápida s/ UP)</td></tr>
-<tr><td>&gt;1</td><td>reais ≠</td><td>super (lenta)</td></tr>
+<tr><td>0</td><td>±jωₙ</td><td>oscila p/ sempre</td></tr>
+<tr><td>0–1</td><td>complexos conj.</td><td>ultrapassa e oscila</td></tr>
+<tr><td>1</td><td>reais iguais</td><td>+ rápida sem ultrapassar</td></tr>
+<tr><td>&gt;1</td><td>reais ≠</td><td>lenta, sem ultrapassar</td></tr>
 </table>
-<p>Polos: −ζωₙ ± jωₙ√(1−ζ²) = −σ<sub>d</sub> ± jω<sub>d</sub> · cos θ = ζ</p>
-<table>
-<tr><td>T<sub>p</sub> = <span class="frac"><span>π</span><span>ω<sub>d</sub></span></span> = <span class="frac"><span>π</span><span>ωₙ√(1−ζ²)</span></span></td><td>T<sub>s</sub> = <span class="frac"><span>4</span><span>ζωₙ</span></span> = <span class="frac"><span>4</span><span>σ<sub>d</sub></span></span></td></tr>
-<tr><td colspan="2">%UP = 100·e<sup>−ζπ/√(1−ζ²)</sup> (só ζ) · ζ = <span class="frac"><span>−ln(UP)</span><span>√(π² + ln²(UP))</span></span> (UP em fração)</td></tr>
-<tr><td colspan="2">T<sub>r</sub>: simulação (Matlab) · aprox. ωₙT<sub>r</sub> ≈ 1,76ζ³ − 0,417ζ² + 1,039ζ + 1</td></tr>
-</table>
-<p class="mini">%UP 20% → ζ 0,456 · 10% → 0,591 · 5% → 0,690. Parte real ↔ T<sub>s</sub>; imag. ↔ T<sub>p</sub>; ângulo ↔ %UP.</p>
-<ul>
-<li><b>Regra 5×:</b> polo extra ≥ 5·σ<sub>d</sub> → aproxima por 2ª ordem.</li>
-<li>Zero no SPE perto: + rápido e + %UP. Zero no SPD: <b>fase não mínima</b> (começa ao contrário).</li>
-</ul>
+<p class="mini">ζ decide a <b>forma</b>; ωₙ a <b>escala de tempo</b>. Mesmo “a”, ↑b → ↓ζ.</p>
 </section>
 
 <section>
-<h2>6. Estabilidade (polos de MALHA FECHADA)</h2>
+<h2><i>12</i>Subamortecido: especificações</h2>
+<svg width="196" height="62" viewBox="0 0 196 62">
+<g fill="none" stroke="#000"><path d="M84 31h108M150 2V60"/><path d="M150 31L104 9M150 31L104 53" stroke-dasharray="2 2"/><path d="M104 9V31" stroke-dasharray="1 2"/><path d="M104 9h46" stroke-dasharray="1 2"/><path d="M136 31A14 14 0 0 0 138 25"/></g>
+<text x="101" y="12" font-size="10">×</text><text x="101" y="56" font-size="10">×</text>
+<text x="118" y="15">ωₙ</text><text x="154" y="12">+jω_d</text><text x="86" y="40">−σ_d</text><text x="128" y="28">θ</text><text x="154" y="46">cos θ = ζ</text>
+<text x="2" y="14">ω_d = ωₙ√(1−ζ²)</text><text x="2" y="26">σ_d = ζωₙ</text><text x="2" y="38">ωₙ = distância</text><text x="2" y="47">do polo à origem</text>
+</svg>
 <table>
-<tr><td>todos no SPE</td><td><b>estável</b></td></tr>
-<tr><td>algum no SPD / repetido no eixo jω</td><td><b>instável</b></td></tr>
-<tr><td>simples no eixo jω, resto SPE</td><td><b>marginal</b></td></tr>
+<tr><td><b>T<sub>p</sub></b> = <span class="frac"><span>π</span><span>ω<sub>d</sub></span></span></td><td>parte imaginária</td></tr>
+<tr><td><b>T<sub>s</sub></b> = <span class="frac"><span>4</span><span>ζωₙ</span></span> = <span class="frac"><span>4</span><span>σ<sub>d</sub></span></span></td><td>parte real</td></tr>
+<tr><td><b>%UP</b> = 100·e<sup>−ζπ/√(1−ζ²)</sup></td><td>só ζ (ângulo)</td></tr>
+<tr><td colspan="2">ζ = <span class="frac"><span>−ln(UP)</span><span>√(π² + ln²UP)</span></span> (UP em fração, ex. 0,2)</td></tr>
+<tr><td colspan="2">T<sub>r</sub>: Matlab · ωₙT<sub>r</sub> ≈ 1,76ζ³ − 0,417ζ² + 1,039ζ + 1</td></tr>
 </table>
-<ul>
-<li>Coef. com sinais ≠ → instável. Falta potência de s → não estável. Todos + → <b>inconclusivo</b> (2ª ordem: estável).</li>
-<li>Estável: natural → 0; instável: cresce; marginal: constante/oscila. BIBO: entrada limitada → saída limitada.</li>
-</ul>
+<table class="mini">
+<tr><th>ζ</th><td>.2</td><td>.3</td><td>.4</td><td>.5</td><td>.6</td><td>.7</td><td>.8</td></tr>
+<tr><th>%UP</th><td>52.7</td><td>37.2</td><td>25.4</td><td>16.3</td><td>9.5</td><td>4.6</td><td>1.5</td></tr>
+<tr><th>ωₙT<sub>r</sub></th><td>1.21</td><td>1.32</td><td>1.46</td><td>1.64</td><td>1.85</td><td>2.13</td><td>2.47</td></tr>
+</table>
+<p class="mini">Gráfico → G: %UP → ζ; T<sub>p</sub> → ω<sub>d</sub> → ωₙ = ω<sub>d</sub>/√(1−ζ²); final → K. Projeto: %UP 20% + T<sub>s</sub> 2 s → ζ 0,456, ωₙ 4,39.</p>
+<p class="mini">Ex.: <span class="frac"><span>100</span><span>s²+15s+100</span></span>: ωₙ 10, ζ .75, T<sub>p</sub> .475, %UP 2.8, T<sub>s</sub> .53 · −3±j7: ζ .394, ωₙ 7.62, T<sub>p</sub> .45, %UP 26, T<sub>s</sub> 1.33</p>
 </section>
 
 <section>
-<h2>7. Routh-Hurwitz</h2>
-<p>Linha sⁿ: a<sub>n</sub>, a<sub>n−2</sub>, … · Linha sⁿ⁻¹: a<sub>n−1</sub>, a<sub>n−3</sub>, … (completar com 0)</p>
+<h2><i>13</i>Polos extras e zeros</h2>
+<ul>
+<li><b>Regra 5×:</b> polo extra ≥ 5·σ<sub>d</sub> (parte real dos dominantes) → aproxima por 2ª ordem. Cortar polo muda ganho DC: conferir G(0).</li>
+<li>Zero: (s+a)C = sC (derivada) + aC (escala). Perto dos dominantes: ↓T<sub>r</sub>, ↑%UP. Longe: pouco efeito.</li>
+<li>Zero ≈ polo → quase se cancelam.</li>
+<li>Zero no SPD = <b>fase não mínima</b> (começa ao contrário). Não é instabilidade.</li>
+</ul>
+</section>
+
+</div>
+</div>
+
+<!-- ======================= VERSO ======================= -->
+<div class="page">
+<header><h1>CONTROLE I — VERSO: estabilidade, erro, PID, Ziegler-Nichols</h1><span>2º bimestre · lista 20/11 · avaliação processual</span></header>
+<div class="cols">
+
+<section>
+<h2><i>14</i>Estabilidade: conceito</h2>
+<p>c(t) = c<sub>forçada</sub> + c<sub>natural</sub>. Estabilidade olha a <b>natural</b> (polos do sistema, de <b>malha fechada</b>).</p>
+<table>
+<tr><td><b>Estável</b></td><td>natural → 0 · polos todos no SPE</td></tr>
+<tr><td><b>Instável</b></td><td>natural cresce · algum polo no SPD ou <b>repetido</b> no eixo jω</td></tr>
+<tr><td><b>Marginal</b></td><td>constante/oscila · polos <b>simples</b> no eixo jω, resto SPE</td></tr>
+</table>
+<p><b>BIBO:</b> estável se toda entrada limitada → saída limitada.</p>
+<p class="mini">Bola na tigela (estável) × no morro (instável). É a especificação <b>mais importante</b>: sem ela, T<sub>s</sub> e erro não fazem sentido.</p>
+</section>
+
+<section>
+<h2><i>15</i>Atalhos pelos coeficientes (Lista Q1a)</h2>
+<ol>
+<li>Sinais diferentes → <b>instável</b> (suficiente).</li>
+<li>Falta potência de s → instável ou, no máx., marginal.</li>
+<li>Todos presentes e + → <b>inconclusivo</b> → Routh. (1ª e 2ª ordem: estável.)</li>
+</ol>
+<p class="mini">s³+s+1 (falta s²) · s³−s²+s+2 (−) · s(s²+s+1) (falta a₀: polo em 0)</p>
+<p class="mini"><b>MF a partir de G unitária:</b> den<sub>MF</sub> = den(G) + num(G).</p>
+</section>
+
+<section>
+<h2><i>16</i>Routh-Hurwitz: montar</h2>
+<table>
+<tr><td>s⁴</td><td>a₄</td><td>a₂</td><td>a₀</td></tr>
+<tr><td>s³</td><td>a₃</td><td>a₁</td><td>0</td></tr>
+<tr><td>s²</td><td>b₁ = <span class="frac"><span>a₃a₂ − a₄a₁</span><span>a₃</span></span></td><td>b₂ = <span class="frac"><span>a₃a₀ − a₄·0</span><span>a₃</span></span></td><td></td></tr>
+<tr><td>s¹</td><td>c₁ = <span class="frac"><span>b₁a₁ − a₃b₂</span><span>b₁</span></span></td><td>0</td><td></td></tr>
+<tr><td>s⁰</td><td>b₂</td><td></td><td></td></tr>
+</table>
 <span class="f">elem = <span class="frac"><span>(pivô baixo)(cima-dir) − (pivô cima)(baixo-dir)</span><span>pivô baixo</span></span></span>
-<div class="alert"><b>nº de polos no SPD = nº de TROCAS de sinal na 1ª coluna.</b> Sem trocas → estável.</div>
+<div class="box"><b>nº polos no SPD = nº de TROCAS de sinal na 1ª coluna.</b> Sem troca → estável. Conte trocas, não negativos.</div>
 <ul>
-<li>Pode multiplicar/dividir uma linha por nº <b>positivo</b>.</li>
-<li>Zero só na 1ª coluna → ε (pequeno +). Linha toda zero → polinômio auxiliar (linha de cima), derivar, usar coeficientes.</li>
-<li><b>Faixa de K:</b> 1ª coluna &gt; 0 em todas as linhas; interseção (não esquecer K &gt; 0).</li>
-<li><b>Limite:</b> K que zera linha s¹ = K<sub>u</sub>. Linha s²: As² + B = 0 → ω = √(B/A); P<sub>u</sub> = 2π/ω.</li>
+<li>Informa quantos polos no SPE, SPD e eixo jω (não onde).</li>
+<li>Pode × ou ÷ uma linha por nº <b>positivo</b>.</li>
+<li><b>Zero só na 1ª col.</b> → ε (pequeno +), seguir, ver sinais com ε→0⁺.</li>
+<li><b>Linha toda zero</b> → P<sub>aux</sub>(s) com a linha de cima → derivar → usar coef. Raízes simétricas (muitas vezes ±jω).</li>
+<li>Maior valor: <b>projetar</b> (faixa de K).</li>
 </ul>
-<p class="mini">Ex.: s³+6s²+11s+6+K → K<sub>u</sub> = 60, ω = √11, P<sub>u</sub> = 1,89 s. Slide “1.386” = mil trezentos e oitenta e seis.</p>
+<p class="mini">Lista Q2: s⁴+2s³+3s²+4s+5 → 1, 2, 1, −6, 5 → 2 trocas → <b>instável, 2 no SPD</b>. Slide: s³+10s²+31s+1030 → 1, 10, −72, 1030 → 2 no SPD.</p>
 </section>
 
 <section>
-<h2>8. Erro em regime permanente</h2>
-<div class="alert"><b>1º checar estabilidade</b> (senão o limite dá número falso).</div>
-<span class="f">E = R(1 − T) · e(∞) = lim<sub>s→0</sub> sE(s)</span><span class="f">unitária: e(∞) = lim<sub>s→0</sub> <span class="frac"><span>sR(s)</span><span>1 + G(s)</span></span></span>
-<ul>
-<li><b>Tipo</b> = nº de polos em s = 0 da <b>FTMA</b> (≠ ordem).</li>
-<li><b>Normalizar:</b> cada fator → (1 + s/p); número na frente = <b>G<sub>N</sub></b> (= K<sub>p</sub>, K<sub>v</sub> ou K<sub>a</sub>).</li>
-</ul>
-<table>
-<tr><th>entrada\tipo</th><th>0</th><th>1</th><th>2</th></tr>
-<tr><td>degrau</td><td><span class="frac"><span>1</span><span>1+G<sub>N</sub></span></span></td><td>0</td><td>0</td></tr>
-<tr><td>rampa</td><td>∞</td><td><span class="frac"><span>1</span><span>G<sub>N</sub></span></span></td><td>0</td></tr>
-<tr><td>parábola</td><td>∞</td><td>∞</td><td><span class="frac"><span>1</span><span>G<sub>N</sub></span></span></td></tr>
+<h2><i>17</i>Faixa de K e ganho crítico</h2>
+<ol>
+<li>den<sub>MF</sub> = 1 + KG = 0.</li>
+<li>Tabela com K.</li>
+<li><b>Toda a 1ª coluna &gt; 0</b> (inequações).</li>
+<li>Interseção (não esquecer <b>K &gt; 0</b> da linha s⁰).</li>
+</ol>
+<p><b>Limite:</b> K que zera a linha s¹ = <b>K<sub>u</sub></b> (marginal, oscila). Linha s²: As² + B = 0 → <b>ω = √(B/A)</b>, <b>P<sub>u</sub> = 2π/ω</b>.</p>
+<table class="mini">
+<tr><td>K/[s(s+7)(s+11)]</td><td>0 &lt; K &lt; 1386 (“1.386” = milhar)</td></tr>
+<tr><td>K/[s(s+1)²]</td><td>0 &lt; K &lt; 2</td></tr>
+<tr><td>s⁴+3s³+3s²+2s+K</td><td>s²: 7/3, K · s¹: 2 − 9K/7 → 0 &lt; K &lt; 14/9</td></tr>
+<tr><td>s³+6s²+11s+6+K</td><td>K<sub>u</sub> = 60 · ω = √11 · P<sub>u</sub> = 1,89 s</td></tr>
 </table>
-<p class="mini">Amplitude A → erro × A. Ex.: 32(s+1)/[s²(s+0,1)(s²+2s+2)] → tipo 2, G<sub>N</sub> = 160.</p>
+<p class="mini">Cuidado: dividir inequação por negativo inverte o sinal.</p>
 </section>
 
 <section>
-<h2>9. Controladores</h2>
+<h2><i>18</i>Erro em regime: fórmulas</h2>
+<div class="box"><b>1º checar estabilidade</b> (Routh). Instável → TVF dá número falso; o erro não se acomoda.</div>
+<span class="f">E(s) = R(s)[1 − T(s)] · e(∞) = lim<sub>s→0</sub> s·E(s)</span>
+<span class="f">unitária (G de MA): e(∞) = lim<sub>s→0</sub> <span class="frac"><span>s·R(s)</span><span>1 + G(s)</span></span></span>
+<p>E(s) = sinal de erro na saída do somador (R − C), entrada do controlador (Lista Q4).</p>
+<ul>
+<li><b>Tipo</b> = nº de polos em s = 0 da <b>MA</b> (integradores). ≠ ordem.</li>
+<li><b>Normalizar:</b> (s+p) → p(1 + s/p); número na frente = <b>G<sub>N</sub></b>.</li>
+<li>G<sub>N</sub> = K<sub>p</sub> = lim G (tipo 0) · K<sub>v</sub> = lim sG (tipo 1) · K<sub>a</sub> = lim s²G (tipo 2).</li>
+</ul>
+<p class="mini"><span class="frac"><span>32(s+1)</span><span>s²(s+0,1)(s²+2s+2)</span></span> = <span class="frac"><span>160(1+s)</span><span>s²(1+s/0,1)(1+s+s²/2)</span></span> → tipo 2, G<sub>N</sub> = 160</p>
+</section>
+
+<section>
+<h2><i>19</i>Erro em regime: tabela</h2>
+<table>
+<tr><th>entrada \ tipo</th><th>0</th><th>1</th><th>2</th></tr>
+<tr><td>degrau <span class="frac"><span>A</span><span>s</span></span></td><td><span class="frac"><span>A</span><span>1+G<sub>N</sub></span></span></td><td>0</td><td>0</td></tr>
+<tr><td>rampa <span class="frac"><span>A</span><span>s²</span></span></td><td>∞</td><td><span class="frac"><span>A</span><span>G<sub>N</sub></span></span></td><td>0</td></tr>
+<tr><td>parábola <span class="frac"><span>A</span><span>s³</span></span></td><td>∞</td><td>∞</td><td><span class="frac"><span>A</span><span>G<sub>N</sub></span></span></td></tr>
+</table>
+<p>Cada integrador “vence” uma entrada a mais. Com T dado: degrau → e = 1 − T(0).</p>
+<p class="mini">T = 5/(s²+7s+10), degrau → 0,5 · 10/[s(s+5)] → tipo 1, G<sub>N</sub> = 2: rampa 0,5 · 20/[(s+1)(s+4)] → tipo 0, G<sub>N</sub> = 5: degrau 1/6 · Lista Q6 (s+1)/(s²+3s+10), rampa → ∞ (degrau 0,9) · Lista Q5: 15/[s(s+1)(s+2)] → MF s³+3s²+2s+15 <b>instável</b> (6 &lt; 15).</p>
+</section>
+
+<section>
+<h2><i>20</i>Ações de controle</h2>
+<ul>
+<li><b>On-off:</b> 2 estados, barato, PV oscila em torno do SP; processos lentos que toleram oscilação.</li>
+<li><b>P</b> (presente): u = K<sub>p</sub>e + u₀. Mais rápido, ↓erro, mas deixa <b>off-set</b> (se e=0, u=0). ↑K<sub>p</sub>: ↓ erro, ↑ %UP, pode desestabilizar. Ex.: erro 20% → válvula 60% → K<sub>p</sub> = 3.</li>
+<li><b>I</b> (passado): soma do erro; <b>elimina off-set</b> (reset); +1 no tipo. Não reduz o pico. K<sub>i</sub> alto → oscila/instável. Não usar sozinha.</li>
+<li><b>D</b> (tendência): antecipa, ↓%UP; não elimina off-set (derivada de cte = 0); <b>amplifica ruído</b>; nunca sozinha; processos rápidos não precisam.</li>
+<li>PI corrige erro · PD melhora transitório · PID os dois.</li>
+</ul>
+</section>
+
+<section>
+<h2><i>21</i>PID: fórmulas e efeitos</h2>
 <span class="f"><span class="frac"><span>U</span><span>E</span></span> = K<sub>p</sub> + <span class="frac"><span>K<sub>i</sub></span><span>s</span></span> + K<sub>d</sub>s = K<sub>p</sub>(1 + <span class="frac"><span>1</span><span>T<sub>i</sub>s</span></span> + T<sub>d</sub>s)</span>
-<p>K<sub>i</sub> = K<sub>p</sub>/T<sub>i</sub> · K<sub>d</sub> = K<sub>p</sub>T<sub>d</sub> · PID = 2 zeros + polo em 0 (tipo +1)</p>
+<p><b>K<sub>i</sub> = K<sub>p</sub>/T<sub>i</sub></b> · <b>K<sub>d</sub> = K<sub>p</sub>T<sub>d</sub></b> · T<sub>i</sub>↑ = menos I · PID: 2 zeros + 1 polo em 0</p>
 <table>
 <tr><th>↑</th><th>T<sub>r</sub></th><th>%UP</th><th>T<sub>s</sub></th><th>e<sub>∞</sub></th></tr>
-<tr><td>K<sub>p</sub></td><td>↓</td><td>↑</td><td>≈</td><td>↓</td></tr>
+<tr><td>K<sub>p</sub></td><td>↓</td><td>↑</td><td>pouco</td><td>↓</td></tr>
 <tr><td>K<sub>i</sub></td><td>↓</td><td>↑</td><td>↑</td><td><b>elimina</b></td></tr>
-<tr><td>K<sub>d</sub></td><td>↓ pouco</td><td>↓</td><td>↓</td><td>≈</td></tr>
+<tr><td>K<sub>d</sub></td><td>↓ pouco</td><td>↓</td><td>↓</td><td>pouco</td></tr>
 </table>
-<ul>
-<li>On-off: 2 estados, oscila; p/ processos lentos. P: deixa off-set. I: reset, não reduz pico. D: antecipa, <b>amplifica ruído</b>, nunca sozinho.</li>
-<li>Discreto: u<sub>P</sub>=K<sub>p</sub>e(n)+u₀ · u<sub>I</sub>=K<sub>i</sub>Te(n)+u(n−1) · u<sub>D</sub>=(K<sub>d</sub>/T)[e(n)−e(n−1)]</li>
-</ul>
+<p class="mini">Tendências: dependem da planta. Discreto (T = amostragem): u<sub>P</sub> = K<sub>p</sub>e(n)+u₀ · u<sub>I</sub> = K<sub>i</sub>T·e(n) + u(n−1) · u<sub>D</sub> = (K<sub>d</sub>/T)[e(n) − e(n−1)].</p>
 </section>
 
 <section>
-<h2>10. Ziegler-Nichols</h2>
-<p><b>ZN1 – curva de reação</b> (MA, degrau, curva em S): tangente no ponto de inflexão → L (atraso), T, C; <b>R = C/T</b>.</p>
+<h2><i>22</i>ZN 1 — curva de reação (MA)</h2>
+<svg width="190" height="50" viewBox="0 0 190 50">
+<g fill="none" stroke="#000"><path d="M8 44h178M8 44V4"/><path d="M8 44C40 44 46 40 60 30S100 10 184 9" stroke-width="1.6"/><path d="M8 9h176" stroke-dasharray="2 2"/><path d="M34 44L104 9" stroke-dasharray="3 1.5"/><path d="M104 9V44" stroke-dasharray="1 2"/></g>
+<text x="0" y="12">C</text><text x="18" y="50">L</text><text x="66" y="50">T</text><text x="118" y="30">tangente no ponto</text><text x="118" y="38">de inflexão</text>
+</svg>
+<p>Manual, degrau na planta, curva em <b>S</b> (sem oscilar/integrador). <b>R = C/T</b> (degrau unit.).</p>
 <table>
 <tr><th></th><th>K<sub>p</sub></th><th>T<sub>i</sub></th><th>T<sub>d</sub></th></tr>
 <tr><td>P</td><td><span class="frac"><span>1</span><span>RL</span></span></td><td>∞</td><td>0</td></tr>
 <tr><td>PI</td><td><span class="frac"><span>0,9</span><span>RL</span></span></td><td><span class="frac"><span>L</span><span>0,3</span></span></td><td>0</td></tr>
 <tr><td>PID</td><td><span class="frac"><span>1,2</span><span>RL</span></span></td><td>2L</td><td>0,5L</td></tr>
 </table>
-<p><b>ZN2 – oscilação</b> (MF, só P: T<sub>i</sub>=∞, T<sub>d</sub>=0): ↑K<sub>p</sub> até oscilação constante → K<sub>u</sub>, P<sub>u</sub> (ou Routh).</p>
+<p class="mini">L até onde a <b>tangente</b> corta o eixo. Ex.: L 0,5, T 3, C 2 → R 0,667 → PID K<sub>p</sub> 3,6, T<sub>i</sub> 1, T<sub>d</sub> 0,25. Variações citadas: Cohen-Coon; CHR (0% e 20% UP).</p>
+</section>
+
+<section>
+<h2><i>23</i>ZN 2 — oscilação (MF)</h2>
+<ol>
+<li>Só P: T<sub>i</sub> = ∞, T<sub>d</sub> = 0, automático, MF.</li>
+<li>K<sub>p</sub> baixo; aumentar aos poucos.</li>
+<li>Oscilação de amplitude constante → <b>K<sub>u</sub></b> e período <b>P<sub>u</sub></b> (no papel: Routh, seção 17).</li>
+<li>Tabela → ganhos → ajuste fino.</li>
+</ol>
 <table>
 <tr><th></th><th>K<sub>p</sub></th><th>T<sub>i</sub></th><th>T<sub>d</sub></th></tr>
 <tr><td>P</td><td>0,5K<sub>u</sub></td><td>∞</td><td>0</td></tr>
 <tr><td>PI</td><td>0,45K<sub>u</sub></td><td><span class="frac"><span>P<sub>u</sub></span><span>1,2</span></span></td><td>0</td></tr>
 <tr><td>PID</td><td>0,6K<sub>u</sub></td><td><span class="frac"><span>P<sub>u</sub></span><span>2</span></span></td><td><span class="frac"><span>P<sub>u</sub></span><span>8</span></span></td></tr>
+<tr><td>c/ sobressinal</td><td>0,33K<sub>u</sub></td><td>P<sub>u</sub>/2</td><td>P<sub>u</sub>/3</td></tr>
+<tr><td>s/ sobressinal</td><td>0,20K<sub>u</sub></td><td>P<sub>u</sub>/2</td><td>P<sub>u</sub>/3</td></tr>
 </table>
-<p class="mini">ZN2 modificado: c/ sobressinal 0,33K<sub>u</sub>, P<sub>u</sub>/2, P<sub>u</sub>/3 · s/ sobressinal 0,20K<sub>u</sub>, P<sub>u</sub>/2, P<sub>u</sub>/3.</p>
-<div class="alert"><b>Ajuste fino:</b> tabelas empíricas = 1ª aproximação; ZN costuma dar %UP alto (~¼ de decaimento) → ajustar por simulação.</div>
+<p class="mini">Ex.: K<sub>u</sub> 60, P<sub>u</sub> 1,894 → PID 36 / 0,947 / 0,237 (K<sub>i</sub> 38, K<sub>d</sub> 8,5) → sim.: %UP ≈ 44%, e = 0. P sozinho: K<sub>p</sub> = K<sub>u</sub>/2 (slide: 7,615/2 = 3,8).</p>
+<div class="box"><b>Ajuste fino:</b> tabelas empíricas = 1ª aproximação; ZN dá %UP alto (~¼ de decaimento). Ajustar por simulação: ↓K<sub>p</sub>/K<sub>i</sub> (↑T<sub>i</sub>) p/ ↓%UP; ↑K<sub>d</sub> se sem ruído; ou tabela modificada.</div>
 </section>
 
 <section>
-<h2>11. Pegadinhas</h2>
+<h2><i>24</i>Frases-modelo (discursivas)</h2>
+<ul class="mini">
+<li><b>FT:</b> relação saída/entrada em Laplace, CI nulas; descreve a dinâmica, independe da entrada.</li>
+<li><b>Routh informa:</b> quantos polos em SPE, SPD e eixo jω, sem calcular raízes; estável se 1ª coluna sem trocas.</li>
+<li><b>Routh no projeto:</b> tabela com K, 1ª coluna &gt; 0, interseção; limite = K<sub>u</sub>.</li>
+<li><b>Por que I zera o erro:</b> integra enquanto há erro; adiciona polo em 0 (tipo +1).</li>
+<li><b>ZN1 × ZN2:</b> MA / curva em S / L,T × MF / limite de estabilidade / K<sub>u</sub>,P<sub>u</sub>.</li>
+</ul>
+</section>
+
+<section>
+<h2><i>25</i>Pegadinhas</h2>
 <ul>
-<li>T<sub>p</sub> usa ω<sub>d</sub>, não ωₙ. ζ = a/(2ωₙ), não a/2.</li>
-<li>Routh e erro: usar <b>malha fechada</b> p/ estabilidade; <b>malha aberta</b> p/ tipo.</li>
-<li>Contar <b>trocas</b>, não negativos.</li>
-<li>Normalizar s² com coef. ≠ 1 antes de achar ζ, ωₙ.</li>
-<li>K<sub>i</sub> ≠ T<sub>i</sub>: T<sub>i</sub> maior = menos ação integral.</li>
+<li>T<sub>p</sub> usa ω<sub>d</sub> (não ωₙ). ζ = a/(2ωₙ) (não a/2).</li>
+<li>Estabilidade e Routh: <b>MF</b>. Tipo: <b>MA</b>.</li>
+<li>Erro: estabilidade antes; amplitude A multiplica.</li>
+<li>Zero no SPD não instabiliza.</li>
+<li>T<sub>i</sub> ≠ K<sub>i</sub>; P<sub>u</sub> = 2π/ω.</li>
+<li>Responder com <b>justificativa</b>: “instável porque…”.</li>
 </ul>
 </section>
 
