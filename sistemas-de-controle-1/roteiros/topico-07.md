@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 07: Diagrama de blocos e redução
 
-Duração do MP3: 3 min 06 s
+Duração do MP3: 3 min 02 s
+
 
 Episódio sete. Diagrama de blocos e redução.
 

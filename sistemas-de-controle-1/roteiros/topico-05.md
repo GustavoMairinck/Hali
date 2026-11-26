@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 05: O que é um sistema de controle
 
-Duração do MP3: 3 min 18 s
+Duração do MP3: 3 min 28 s
+
 
 Episódio cinco. O que é um sistema de controle.
 
@@ -16,19 +17,35 @@ O professor abre a disciplina com uma comparação: um tornado e um avião. Os d
 
 Agora as peças, usando um ar-condicionado como exemplo.
 
+
+
 A referência, ou setpoint, é o valor que você quer. Vinte e dois graus.
+
+
 
 A saída, ou variável controlada, é a temperatura real da sala.
 
+
+
 O controlador compara a referência com a saída medida e decide o que fazer. Pode ser um microprocessador.
+
+
 
 O atuador faz o trabalho físico. O compressor.
 
+
+
 O processo é a sala.
+
+
 
 A planta é atuador mais processo, juntos. No projeto, eles viram um bloco só.
 
+
+
 O sensor mede a saída. Um termistor, por exemplo.
+
+
 
 E o distúrbio é tudo que atrapalha. Alguém abrindo a porta.
 
@@ -36,7 +53,11 @@ E o distúrbio é tudo que atrapalha. Alguém abrindo a porta.
 
 Agora a diferença mais cobrada: malha aberta e malha fechada.
 
+
+
 Malha aberta não mede a saída. Ela segue um programa. O exemplo do professor é a máquina de lavar: ela não sabe se a roupa ficou limpa. Ele também diz que dirigir em malha aberta é dirigir de olhos fechados.
+
+
 
 Malha fechada mede a saída, compara com a referência e corrige. Isso se chama realimentação.
 

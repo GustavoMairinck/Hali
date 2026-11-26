@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 09: Sistemas de 1ª ordem
 
-Duração do MP3: 3 min 13 s
+Duração do MP3: 3 min 11 s
+
 
 Episódio nove. Sistemas de primeira ordem.
 
@@ -20,9 +21,15 @@ A resposta ao degrau é c de t igual a k vezes, abre parênteses, um menos expon
 
 Os três números, na forma do professor, com polo em menos a.
 
+
+
 Constante de tempo: tau igual a um sobre a. É o tempo para chegar a sessenta e três por cento do valor final.
 
+
+
 Tempo de subida: T r igual a dois vírgula dois sobre a. É o tempo de dez a noventa por cento. O dois vírgula dois vem da diferença entre o instante de noventa, que é dois vírgula três um sobre a, e o de dez por cento, zero vírgula onze sobre a.
+
+
 
 Tempo de acomodação: T s igual a quatro sobre a. É o tempo para entrar na faixa de dois por cento e não sair mais. O quatro vem de exponencial de menos quatro, que é quase zero vírgula zero dois.
 
@@ -41,8 +48,6 @@ Na processual, apareceram três sistemas: um sobre s mais um, um sobre s mais ci
 
 
 Erros comuns. Tirar tau do numerador: tau vem do polo. Esquecer de normalizar: dois sobre quatro s mais um tem tau igual a quatro, não um quarto. E achar que o ganho muda a velocidade: o ganho muda só o valor final.
-
-
 
 
 

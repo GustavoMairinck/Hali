@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 02: Transformada de Laplace — tabela e propriedades
 
-Duração do MP3: 3 min 22 s
+Duração do MP3: 3 min 24 s
+
 
 Episódio dois. Transformada de Laplace, com a tabela simplificada.
 
@@ -24,9 +25,15 @@ Ainda na tabela: exponencial de menos a t vira um sobre s mais a. Seno de ômega
 
 Agora as três regras.
 
+
+
 Regra um, linearidade. Constantes saem para fora. Sete vezes alguma coisa vira sete vezes a transformada dessa coisa.
 
+
+
 Regra dois, a mais importante e a que não está na tabela: deslocamento na frequência. Se a função está multiplicada por exponencial de menos a t, você troca todo s por s mais a. Se for exponencial de mais a t, troca todo s por s menos a. O sinal sempre inverte. O motivo é que a definição de Laplace já tem um exponencial de menos s t. Quando você junta com exponencial de menos a t, fica exponencial de menos, abre parênteses, s mais a, fecha parênteses, vezes t.
+
+
 
 Regra três: derivada vira s vezes F de s, com condições iniciais nulas.
 
@@ -34,13 +41,23 @@ Regra três: derivada vira s vezes F de s, com condições iniciais nulas.
 
 Vamos a um exemplo do jeito que aparece na prova. Cinco vezes exponencial de menos dois t vezes seno de três t.
 
+
+
 Passo um, separa as peças: a constante cinco, a exponencial, e o seno.
+
+
 
 Passo dois, o seno de três t, pela tabela, é três sobre s ao quadrado mais nove.
 
+
+
 Passo três, a exponencial de menos dois t manda trocar s por s mais dois. Fica três sobre, abre parênteses, s mais dois, fecha, ao quadrado, mais nove. Atenção: o nove não muda. Ele é ômega ao quadrado, não é s. E o quadrado já estava no s ao quadrado da tabela.
 
+
+
 Passo quatro, multiplica pela constante: cinco vezes três, quinze.
+
+
 
 Resposta: quinze sobre s mais dois ao quadrado mais nove.
 

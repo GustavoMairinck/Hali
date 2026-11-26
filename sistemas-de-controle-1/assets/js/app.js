@@ -31,28 +31,87 @@
   function wrapTables(root) { (root || main).querySelectorAll('table').forEach(function (tb) { if (!tb.parentNode.classList.contains('tablewrap')) { var w = document.createElement('div'); w.className = 'tablewrap'; tb.parentNode.insertBefore(w, tb); w.appendChild(tb); } }); }
   function impChip(t) { return '<span class="chip ' + (t.importancia === 'Essencial' ? 'e' : 'y') + '">' + t.importancia + '</span>'; }
 
-  /* ---------- voz do navegador (alternativa ao MP3) ---------- */
-  var speaking = null;
-  function speak(id, btn) {
-    if (!('speechSynthesis' in window)) return;
-    if (speaking === id) { speechSynthesis.cancel(); speaking = null; btn.textContent = 'Ouvir com a voz do navegador'; return; }
-    speechSynthesis.cancel();
-    var u = new SpeechSynthesisUtterance(byId[id].audio.roteiro);
-    u.lang = 'pt-BR'; u.rate = 0.95;
-    var v = speechSynthesis.getVoices().filter(function (x) { return /pt(-|_)BR/i.test(x.lang); })[0];
-    if (v) u.voice = v;
-    u.onend = function () { speaking = null; btn.textContent = 'Ouvir com a voz do navegador'; };
-    speaking = id; btn.textContent = 'Parar a voz do navegador';
-    speechSynthesis.speak(u);
+  /* ---------- player de áudio com visuais sincronizados ---------- */
+  var SPEEDS = [0.5, 1, 1.5, 2, 2.5, 3];
+  var SY = window.SYNC || {}, VIS = window.VIS || {};
+  function fmtT(s) { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
+  function spLabel(v) { return String(v).replace('.', ',') + '×'; }
+  function cueFor(id, p) { var L = VIS[id] || [], c = null; for (var i = 0; i < L.length; i++) { if (L[i][0] <= p) c = L[i]; else break; } return c || L[0] || null; }
+  function audioBlock(t, compact) {
+    var a = t.audio, sy = SY[t.id], dur = (sy && sy.dur) || a.dur, sp = st.speed || 1;
+    if (!a.mp3) return '<div class="audiobox"><p class="note">MP3 indisponível.</p></div>';
+    var out = '<div class="player' + (compact ? ' compact' : '') + '" data-id="' + t.id + '">';
+    out += '<div class="pl-stage" aria-live="off"><div class="pl-vis"></div><p class="pl-cap"></p></div>';
+    out += '<div class="pl-bar"><button class="pl-play" aria-label="Tocar"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-play" d="M8 5v14l11-7z"/><path class="i-pause" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg></button>';
+    out += '<button class="pl-skip" data-d="-10" aria-label="Voltar 10 segundos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"/></svg><span>10</span></button>';
+    out += '<div class="pl-track"><div class="pl-ticks">' + ((VIS[t.id] || []).map(function (c) { var s0 = sy && sy.segs.filter(function (g) { return g[2] >= c[0]; })[0]; return s0 ? '<i style="left:' + (100 * s0[0] / dur).toFixed(2) + '%"></i>' : ''; }).join('')) + '</div>';
+    out += '<input type="range" class="pl-seek" min="0" max="' + Math.round(dur * 10) + '" value="0" step="1" aria-label="Posição do áudio" style="--p:0%"></div>';
+    out += '<button class="pl-skip" data-d="10" aria-label="Avançar 10 segundos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2l5 4-5 4V7a6 6 0 1 0 6 6h2a8 8 0 1 1-8-8z"/></svg><span>10</span></button>';
+    out += '<span class="pl-time"><b>0:00</b> / ' + fmtT(dur / sp) + '</span></div>';
+    out += '<div class="pl-speed" role="group" aria-label="Velocidade de reprodução"><span class="pl-sl">Velocidade</span>' + SPEEDS.map(function (v) { return '<button data-sp="' + v + '"' + (v === sp ? ' class="on" aria-pressed="true"' : ' aria-pressed="false"') + '>' + spLabel(v) + '</button>'; }).join('') + '</div>';
+    if (sy) {
+      var lines = '', lastP = -1;
+      sy.segs.forEach(function (g, i) { if (g[2] !== lastP) { lines += (lastP >= 0 ? '</p>' : '') + '<p>'; lastP = g[2]; } lines += '<span data-i="' + i + '">' + esc(g[3]) + '</span> '; });
+      out += '<details class="pl-tr"><summary>Roteiro sincronizado <span class="muted">(clique numa frase para ir até ela)</span></summary><div class="pl-lines">' + lines + '</p></div></details>';
+    } else out += '<details class="pl-tr"><summary>Roteiro escrito</summary><div class="pl-lines">' + a.roteiro.split(/\n+/).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</div></details>';
+    out += '<audio preload="metadata" src="audios/topico-' + t.id + '.mp3"></audio></div>';
+    return out;
   }
-  function audioBlock(t, withScript) {
-    var a = t.audio, out = '<div class="audiobox"><div class="row" style="margin:0"><b>Áudio do tópico ' + t.id + '</b><span class="chip">' + fmtDur(a.dur) + '</span></div>';
-    if (a.mp3) out += '<audio controls preload="none" src="audios/topico-' + t.id + '.mp3"></audio>';
-    else out += '<p class="note">MP3 indisponível.</p>';
-    if ('speechSynthesis' in window) out += '<div class="row"><button class="btn ghost" data-speak="' + t.id + '">Ouvir com a voz do navegador</button></div>';
-    if (withScript) out += '<details class="ans"><summary>Roteiro escrito</summary><div class="in">' + a.roteiro.split(/\n+/).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</div></details>';
-    return out + '</div>';
+  function initPlayers(root) {
+    (root || main).querySelectorAll('.player').forEach(function (el) {
+      var id = el.dataset.id, au = el.querySelector('audio'), seek = el.querySelector('.pl-seek'), sy = SY[id];
+      var vis = el.querySelector('.pl-vis'), cap = el.querySelector('.pl-cap'), time = el.querySelector('.pl-time b'), tot = el.querySelector('.pl-time');
+      var curSeg = -2, curCue = null, raf = 0, dragging = false;
+      var dur = (sy && sy.dur) || byId[id].audio.dur || 0;
+      au.playbackRate = st.speed || 1;
+      function showCue(c) {
+        if (c === curCue) return; curCue = c;
+        if (!c) { vis.innerHTML = ''; return; }
+        vis.classList.remove('in'); void vis.offsetWidth;
+        vis.innerHTML = '<div class="pl-kick">' + c[1] + '</div><div class="pl-body">' + c[2] + '</div>'; vis.classList.add('in');
+      }
+      function segAt(t) { if (!sy) return -1; var s = sy.segs, lo = 0, hi = s.length - 1, r = -1; while (lo <= hi) { var m = (lo + hi) >> 1; if (s[m][0] <= t + 0.05) { r = m; lo = m + 1; } else hi = m - 1; } return r; }
+      function sync() {
+        var t = au.currentTime || 0, d = au.duration && isFinite(au.duration) ? au.duration : dur;
+        if (!dragging) { seek.value = Math.round(t * 10); seek.style.setProperty('--p', (100 * t / d) + '%'); }
+        time.textContent = fmtT(t / au.playbackRate);
+        tot.lastChild.nodeValue = ' / ' + fmtT(d / au.playbackRate);
+        var i = segAt(t);
+        if (i !== curSeg) {
+          curSeg = i;
+          var g = sy && sy.segs[Math.max(0, i)];
+          cap.textContent = g ? g[3] : '';
+          showCue(cueFor(id, g ? g[2] : 0));
+          var old = el.querySelector('.pl-lines .now'); if (old) old.classList.remove('now');
+          var sp = i >= 0 && el.querySelector('.pl-lines [data-i="' + i + '"]');
+          if (sp) { sp.classList.add('now'); var box = sp.closest('.pl-lines'); if (box && el.querySelector('.pl-tr').open) box.scrollTop = sp.offsetTop - box.offsetTop - box.clientHeight / 3; }
+        }
+      }
+      function loopRaf() { sync(); if (!au.paused) raf = requestAnimationFrame(loopRaf); }
+      au.addEventListener('play', function () {
+        main.querySelectorAll('.player audio').forEach(function (o) { if (o !== au) o.pause(); });
+        el.classList.add('playing', 'active'); el.querySelector('.pl-play').setAttribute('aria-label', 'Pausar'); cancelAnimationFrame(raf); loopRaf();
+      });
+      au.addEventListener('pause', function () { el.classList.remove('playing'); el.querySelector('.pl-play').setAttribute('aria-label', 'Tocar'); cancelAnimationFrame(raf); sync(); });
+      au.addEventListener('ended', function () { el.classList.remove('playing'); });
+      au.addEventListener('loadedmetadata', sync);
+      au.addEventListener('seeked', sync);
+      el.querySelector('.pl-play').onclick = function () { if (au.paused) au.play(); else au.pause(); };
+      el.querySelectorAll('.pl-skip').forEach(function (b) { b.onclick = function () { au.currentTime = Math.max(0, Math.min((au.duration || dur) - 0.1, au.currentTime + +b.dataset.d)); sync(); }; });
+      seek.addEventListener('input', function () { dragging = true; var t = seek.value / 10; seek.style.setProperty('--p', (100 * t / dur) + '%'); time.textContent = fmtT(t / au.playbackRate); });
+      seek.addEventListener('change', function () { dragging = false; au.currentTime = seek.value / 10; sync(); });
+      el.querySelectorAll('.pl-speed button').forEach(function (b) {
+        b.onclick = function () {
+          var v = +b.dataset.sp; st.speed = v; save();
+          main.querySelectorAll('.player').forEach(function (p) { p.querySelector('audio').playbackRate = v; p.querySelectorAll('.pl-speed button').forEach(function (x) { var on = +x.dataset.sp === v; x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); }); });
+          sync();
+        };
+      });
+      el.querySelectorAll('.pl-lines [data-i]').forEach(function (s) { s.onclick = function () { au.currentTime = sy.segs[+s.dataset.i][0] + 0.01; if (au.paused) au.play(); sync(); }; });
+      sync();
+    });
   }
+  function stopAudio() { main.querySelectorAll('.player audio').forEach(function (a) { a.pause(); }); }
 
   /* ---------- PAINEL ---------- */
   function painel() {
@@ -96,7 +155,7 @@
     var html = '<p class="muted" style="margin:0">' + esc(t.bloco) + '</p><h1>' + esc(tt(t)) + '</h1>';
     html += '<div class="row">' + impChip(t) + '<span class="chip">Dificuldade: ' + t.dificuldade + '</span><span class="chip">⏱ ' + t.tempo + '</span>' + (st.done[id] ? '<span class="chip y">Concluído ✓</span>' : '') + '</div>';
     html += '<dl class="meta"><dt>Pré-requisitos</dt><dd>' + linkIds(t.prereq) + '</dd><dt>Relação</dt><dd>' + esc(t.relacao) + '</dd><dt>Fontes</dt><dd>' + t.fontes + '</dd></dl>';
-    html += audioBlock(t, true);
+    html += audioBlock(t, false);
     t.sections.forEach(function (s, i) {
       var open = i < 2 ? ' open' : '';
       var inner = s.html;
@@ -106,19 +165,19 @@
     var nq = D.questoes.filter(function (q) { return q.topico === id; }).length;
     html += '<div class="row" style="margin-top:18px"><button class="btn ' + (st.done[id] ? 'ghost' : 'primary') + '" id="doneBtn">' + (st.done[id] ? 'Desmarcar conclusão' : 'Marcar como concluído') + '</button>' + (nq ? '<a class="btn" href="#exercicios-' + id + '">Praticar: ' + nq + ' questões deste tópico</a>' : '') + '</div>';
     html += '<div class="pager">' + (prev ? '<a class="btn ghost" href="#topico-' + prev + '">← ' + esc(tt(byId[prev])) + '</a>' : '<span></span>') + (next ? '<a class="btn ghost" href="#topico-' + next + '">' + esc(tt(byId[next])) + ' →</a>' : '<a class="btn ghost" href="#simulado">Ir para o simulado →</a>') + '</div>';
-    h(html); wrapTables();
+    h(html); wrapTables(); initPlayers();
     document.getElementById('doneBtn').onclick = function () { st.done[id] = !st.done[id]; if (!st.done[id]) delete st.done[id]; save(); topico(id); };
   }
   function linkIds(s) { return s.replace(/\b(\d{2})\b/g, function (m) { return byId[m] ? '<a href="#topico-' + m + '">' + m + '</a>' : m; }); }
 
   /* ---------- ÁUDIOS ---------- */
   function audios() {
-    var html = '<h1>Áudios</h1><p class="lead">Um episódio por tópico, na ordem do mapa. Nada toca sozinho.</p><p class="note">Os MP3 foram gerados com voz sintética offline (Piper, pt-BR). Se preferir, use a voz do navegador.</p>';
+    var html = '<h1>Áudios</h1><p class="lead">Um episódio por tópico, na ordem do mapa. Nada toca sozinho.</p><p class="note">Voz sintética pt-BR (Kokoro). Os visuais e a frase atual acompanham a narração; a velocidade vai de 0,5× a 3×.</p>';
     ORDER.forEach(function (i) {
       var t = byId[i];
       html += '<div class="card"><div class="row" style="margin:0;justify-content:space-between"><b>' + esc(tt(t)) + '</b><a href="#topico-' + i + '">abrir tópico</a></div><p class="muted" style="margin:4px 0 0">' + esc(t.relacao) + '</p>' + audioBlock(t, true) + '</div>';
     });
-    h(html);
+    h(html); initPlayers();
   }
 
   /* ---------- QUESTÕES ---------- */
@@ -278,7 +337,7 @@
 
   /* ---------- roteador ---------- */
   function route() {
-    if ('speechSynthesis' in window) { speechSynthesis.cancel(); speaking = null; }
+    stopAudio();
     var hs = (location.hash || '').replace(/^#\/?/, ''), k = hs.indexOf('-');
     var p = k < 0 ? [hs] : [hs.slice(0, k), hs.slice(k + 1)];
     var r = p[0] || 'inicio';
@@ -294,7 +353,6 @@
     if (r === 'sobre') return sobre();
     return painel();
   }
-  main.addEventListener('click', function (e) { var b = e.target.closest('[data-speak]'); if (b) speak(b.dataset.speak, b); });
   document.getElementById('menuBtn').onclick = function () { var n = document.getElementById('nav'); n.classList.toggle('open'); this.setAttribute('aria-expanded', n.classList.contains('open')); };
   window.addEventListener('hashchange', route);
   route();

@@ -1,6 +1,7 @@
 # Roteiro do áudio — Tópico 14: Critério de Routh-Hurwitz
 
-Duração do MP3: 3 min 22 s
+Duração do MP3: 3 min 29 s
+
 
 Episódio catorze. O critério de Routh-Hurwitz.
 
@@ -16,9 +17,15 @@ Pensa no Routh como um detector de sinais. Ele não diz onde estão os polos. El
 
 Como montar. Pega o denominador de malha fechada, por exemplo s à quarta mais dois s ao cubo mais três s ao quadrado mais quatro s mais cinco.
 
+
+
 A primeira linha recebe os coeficientes pulando um: um, três e cinco.
 
+
+
 A segunda linha recebe os que sobraram: dois, quatro, e completa com zero.
+
+
 
 Da terceira linha em diante, cada elemento é calculado assim: o pivô de baixo vezes o elemento de cima à direita, menos o pivô de cima vezes o elemento de baixo à direita, tudo dividido pelo pivô de baixo. O pivô é o primeiro número de cada linha.
 
@@ -26,17 +33,31 @@ Da terceira linha em diante, cada elemento é calculado assim: o pivô de baixo 
 
 Vamos fazer juntos, é a questão dois da lista.
 
+
+
 Linha s quadrado, primeiro elemento: dois vezes três, menos um vezes quatro, dividido por dois. Seis menos quatro, dois, dividido por dois: um.
+
+
 
 Segundo elemento: dois vezes cinco, menos um vezes zero, dividido por dois: cinco.
 
+
+
 Linha s um: um vezes quatro, menos dois vezes cinco, dividido por um. Quatro menos dez: menos seis.
+
+
 
 Linha s zero: dá cinco.
 
+
+
 A primeira coluna fica: um, dois, um, menos seis, cinco.
 
+
+
 Trocas: de um para menos seis, uma. De menos seis para cinco, duas.
+
+
 
 Conclusão: instável, com dois polos no semiplano direito. Eu conferi no computador: as raízes são menos um vírgula dois nove mais ou menos jota zero vírgula oito seis, e mais zero vírgula dois nove mais ou menos jota um vírgula quatro dois.
 
@@ -51,8 +72,6 @@ Casos especiais, que o professor deixou para casa. Zero só no primeiro elemento
 
 
 Erros comuns: usar o denominador de malha aberta; contar números negativos em vez de contar trocas; errar a ordem da conta do elemento; e esquecer o zero que completa a linha.
-
-
 
 
 
