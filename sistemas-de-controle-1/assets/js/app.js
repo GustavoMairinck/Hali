@@ -37,6 +37,27 @@
   function fmtT(s) { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }
   function spLabel(v) { return String(v).replace('.', ',') + '×'; }
   function cueFor(id, p) { var L = VIS[id] || [], c = null; for (var i = 0; i < L.length; i++) { if (L[i][0] <= p) c = L[i]; else break; } return c || L[0] || null; }
+  /* vídeos explicativos (tópicos da prova e o piloto): aba Vídeo ao lado do áudio com cartões */
+  var VIDEOS = { '01': 1, '13': 1, '14': 1, '15': 1, '16': 1, '17': 1, '18': 1 };
+  function mediaTabs(t) {
+    var out = '<div class="mtabs" role="tablist"><button role="tab" data-m="v" class="on" aria-selected="true">▶ Vídeo</button><button role="tab" data-m="a" aria-selected="false">Áudio com cartões</button></div>';
+    out += '<div class="mpane" data-m="v"><video class="vid" controls preload="metadata" playsinline src="videos/episodio-' + t.id + '.mp4?v=1"></video></div>';
+    out += '<div class="mpane" data-m="a" hidden>' + audioBlock(t, false) + '</div>';
+    return out;
+  }
+  function initTabs(root) {
+    (root || main).querySelectorAll('.mtabs').forEach(function (tb) {
+      tb.addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        var m = b.dataset.m;
+        tb.querySelectorAll('button').forEach(function (x) { var on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); });
+        tb.parentNode.querySelectorAll('.mpane').forEach(function (p) {
+          var show = p.dataset.m === m; p.hidden = !show;
+          if (!show) p.querySelectorAll('audio, video').forEach(function (a) { a.pause(); });
+        });
+      });
+    });
+  }
   function audioBlock(t, compact) {
     var a = t.audio, sy = SY[t.id], dur = (sy && sy.dur) || a.dur, sp = st.speed || 1;
     if (!a.mp3) return '<div class="audiobox"><p class="note">MP3 indisponível.</p></div>';
@@ -171,7 +192,7 @@
     var html = '<p class="muted" style="margin:0">' + esc(t.bloco) + '</p><h1>' + esc(tt(t)) + '</h1>';
     html += '<div class="row">' + impChip(t) + '<span class="chip">Dificuldade: ' + t.dificuldade + '</span><span class="chip">⏱ ' + t.tempo + '</span>' + (st.done[id] ? '<span class="chip y">Concluído ✓</span>' : '') + '</div>';
     html += '<dl class="meta"><dt>Pré-requisitos</dt><dd>' + linkIds(t.prereq) + '</dd><dt>Relação</dt><dd>' + esc(t.relacao) + '</dd><dt>Fontes</dt><dd>' + t.fontes + '</dd></dl>';
-    html += audioBlock(t, false);
+    html += VIDEOS[id] ? mediaTabs(t) : audioBlock(t, false);
     t.sections.forEach(function (s, i) {
       var open = i < 2 ? ' open' : '';
       var inner = s.html;
@@ -181,7 +202,7 @@
     var nq = D.questoes.filter(function (q) { return q.topico === id; }).length;
     html += '<div class="row" style="margin-top:18px"><button class="btn ' + (st.done[id] ? 'ghost' : 'primary') + '" id="doneBtn">' + (st.done[id] ? 'Desmarcar conclusão' : 'Marcar como concluído') + '</button>' + (nq ? '<a class="btn" href="#exercicios-' + id + '">Praticar: ' + nq + ' questões deste tópico</a>' : '') + '</div>';
     html += '<div class="pager">' + (prev ? '<a class="btn ghost" href="#topico-' + prev + '">← ' + esc(tt(byId[prev])) + '</a>' : '<span></span>') + (next ? '<a class="btn ghost" href="#topico-' + next + '">' + esc(tt(byId[next])) + ' →</a>' : '<a class="btn ghost" href="#simulado">Ir para o simulado →</a>') + '</div>';
-    h(html); wrapTables(); initPlayers();
+    h(html); wrapTables(); initPlayers(); initTabs();
     document.getElementById('doneBtn').onclick = function () { st.done[id] = !st.done[id]; if (!st.done[id]) delete st.done[id]; save(); topico(id); };
   }
   function linkIds(s) { return s.replace(/\b(\d{2})\b/g, function (m) { return byId[m] ? '<a href="#topico-' + m + '">' + m + '</a>' : m; }); }

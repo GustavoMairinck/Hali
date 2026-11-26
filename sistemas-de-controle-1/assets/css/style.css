@@ -228,3 +228,11 @@ textarea { width: 100%; min-height: 90px; }
 .pl-cap .w.on { color: #fff; }
 .player.playing .pl-stage { border-color: #3a3a3a; }
 @media (max-width: 760px) { .pl-stage { min-height: 300px; } .pl-body { min-height: 200px; } .pl-body .vf { font-size: 18px; } .pl-body .vbig { font-size: 22px; } }
+
+/* ---------- abas Vídeo / Áudio com cartões ---------- */
+.mtabs{display:flex;gap:6px;margin:18px 0 8px}
+.mtabs button{font:inherit;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid #333;background:#171717;color:#a9a9a9;cursor:pointer}
+.mtabs button.on{background:#f5c518;border-color:#f5c518;color:#111}
+.mtabs button:focus-visible{outline:2px solid #7cc4ff;outline-offset:2px}
+.mpane .vid{display:block;width:100%;aspect-ratio:16/9;background:#0f0f0f;border-radius:14px;border:1px solid #2a2a2a}
+.mpane .player{margin-top:0}

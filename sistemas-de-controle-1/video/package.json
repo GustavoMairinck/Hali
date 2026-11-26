@@ -1,0 +1,21 @@
+{
+  "name": "hali-videos",
+  "version": "1.0.0",
+  "description": "Vídeos explicativos de Sistemas de Controle I (Remotion + Manim)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@remotion/bundler": "^4.0.547",
+    "@remotion/cli": "^4.0.547",
+    "@remotion/renderer": "^4.0.547",
+    "gsap": "^3.15.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.547"
+  }
+}
