@@ -68,7 +68,7 @@
       '<a class="tile" href="#audios"><b>Áudios</b><span>18 episódios curtos, um por tópico</span></a>' +
       '<a class="tile" href="#exercicios"><b>Banco de questões</b><span>' + D.questoes.length + ' questões com gabarito comentado</span></a>' +
       '<a class="tile" href="#simulado"><b>Simulado</b><span>10 questões, correção e diagnóstico</span></a>' +
-      '<a class="tile" href="#folha"><b>Folha A4</b><span>consulta para a prova · ver e imprimir</span></a>' +
+      '<a class="tile" href="#folha"><b>Folha A4</b><span>modelo frente e verso para copiar à mão</span></a>' +
       '<a class="tile" href="#revisao"><b>Revisão</b><span>fórmulas, flashcards, dificuldades</span></a>' +
       '<a class="tile" href="#mapa"><b>Mapa de aprendizagem</b><span>ordem e dependências</span></a></div>';
     html += '<h2>Foco provável da prova do 2º bimestre</h2><p class="muted">Hipótese baseada na lista de 20/11 (ver "Sobre").</p><div class="row">' + ['13','14','15','16','17','18'].map(function (i) { return '<a class="chip y" href="#topico-' + i + '">' + esc(tt(byId[i])) + (st.done[i] ? ' ✓' : '') + '</a>'; }).join('') + '</div>';
@@ -265,7 +265,7 @@
 
   /* ---------- FOLHA ---------- */
   function folha() {
-    var html = '<h1>Folha de consulta A4</h1><p class="lead">Uma página, pensada para resolver questões, não para estudar.</p>' + (D.pdf ? '<div class="row"><a class="btn primary" href="folha-a4/consulta-prova.pdf" download>Baixar PDF (A4)</a><a class="btn" href="folha-a4/consulta-prova.html" target="_blank" rel="noopener">Abrir versão para imprimir</a></div><p class="note">Imprima em 100% (sem "ajustar à página").</p>' : '<p class="note">Para imprimir, use o PDF da pasta <b>folha-a4</b> do pacote .zip (imprima em 100%, sem "ajustar à página").</p>') + '<iframe class="folha-frame" src="folha-a4/consulta-prova.html" title="Folha de consulta A4"></iframe><h2>Por que este conteúdo</h2>' + D.justificativa;
+    var html = '<h1>Folha de consulta A4 (frente e verso)</h1><p class="lead">Modelo para copiar à mão: frente = base e resposta no tempo; verso = estabilidade, erro e PID.</p>' + (D.pdf ? '<div class="row"><a class="btn primary" href="folha-a4/consulta-prova.pdf" download>Baixar PDF modelo (2 páginas)</a><a class="btn" href="folha-a4/consulta-prova.html" target="_blank" rel="noopener">Abrir versão para imprimir</a></div><p class="note">Imprima em 100% (sem "ajustar à página").</p>' : '<p class="note">Para imprimir, use o PDF da pasta <b>folha-a4</b> do pacote .zip (imprima em 100%, sem "ajustar à página").</p>') + '<iframe class="folha-frame" src="folha-a4/consulta-prova.html" title="Folha de consulta A4"></iframe><h2>Por que este conteúdo</h2>' + D.justificativa;
     h(html);
   }
 
